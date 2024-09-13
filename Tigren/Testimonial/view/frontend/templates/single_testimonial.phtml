@@ -1,0 +1,21 @@
+<?php
+
+use Tigren\Testimonial\Model\Testimonial;
+use Magento\Framework\View\Element\Template;
+
+/** @var Testimonial $testimonial */
+/** @var Template $block */
+$testimonialViewModel = $block->getData('testimonial_view_model');
+$testimonial = $block->getData('testimonial');
+?>
+
+<a href="<?= $testimonialViewModel->getTestimonialUrl($testimonial); ?>">
+    <h3><?= $testimonial->getData('name') ?></h3>
+</a>
+
+<p>
+    <span class="author">Chinh Do</span>
+    <span class="published-date"><?= $block->formatDate($testimonial->getData('created_at')) ?></span>
+</p>
+
+<p><?= $testimonial->getData('message') ?></p>

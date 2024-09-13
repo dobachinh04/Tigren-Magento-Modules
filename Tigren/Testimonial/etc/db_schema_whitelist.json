@@ -1,0 +1,18 @@
+{
+    "tigren_testimonial": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "email": true,
+            "message": true,
+            "company": true,
+            "rating": true,
+            "profile_image": true,
+            "status": true,
+            "created_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
