@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="customer_group_catalog" frontName="customer_group_catalog">
+            <module name="Tigren_CustomerGroupCatalog" before="Magento_Backend" />
+        </route>
+    </router>
+</config>

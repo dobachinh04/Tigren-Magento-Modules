@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customer_group_catalog_listing.customer_group_catalog_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>customer_group_catalog_columns</spinner>
+        <deps>
+            <dep>customer_group_catalog_listing.customer_group_catalog_listing_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="customer_group_catalog/rule/add" />
+                <class>primary</class>
+                <label translate="true">Add new</label>
+            </button>
+        </buttons>
+    </settings>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <filterSearch name="fulltext" />
+        <bookmark name="bookmarks" />
+        <exportButton name="export_button" />
+        <columnsControls name="columns_controls" />
+        <filters name="listing_filters" />
+        <paging name="listing_paging" />
+
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/massactions</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="customer_group_catalog/rule/delete" />
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Row</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </listingToolbar>
+
+    <dataSource name="customer_group_catalog_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render" />
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+        </settings>
+        <aclResource>Tigren_CustomerGroupCatalog::listing</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="customer_group_catalog_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>rule_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- columns -->
+    <columns name="customer_group_catalog_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>rule_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <!-- Column id -->
+        <column name="rule_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+
+        <!-- Column name -->
+        <column name="name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+            </settings>
+        </column>
+
+        <!-- Column email -->
+        <column name="customer_group_ids">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Group IDs</label>
+            </settings>
+        </column>
+
+        <column name="store_ids">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Store IDs</label>
+            </settings>
+        </column>
+
+        <column name="product_ids">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product IDs</label>
+            </settings>
+        </column>
+
+        <column name="discount_amount">
+            <settings>
+                <filter>range</filter>
+                <label translate="true">Discount Amount</label>
+            </settings>
+        </column>
+
+        <!--        <column name="profile_image" class="Tigren\CustomerGroupCatalog\Ui\Component\Listing\Grid\Column\ProfileImage" component="Magento_Ui/js/grid/columns/thumbnail">-->
+        <!--            <settings>-->
+        <!--                <label translate="true">Profile Image</label>-->
+        <!--                &lt;!&ndash;                <dataType>thumbnail</dataType>&ndash;&gt;-->
+        <!--                <filter>text</filter>-->
+        <!--                <bodyTmpl>ui/grid/cells/thumbnail</bodyTmpl>-->
+        <!--                <sortable>true</sortable>-->
+        <!--            </settings>-->
+        <!--        </column>-->
+
+        <column name="start_time">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Start Time</label>
+            </settings>
+        </column>
+
+        <column name="end_time">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">End Time</label>
+            </settings>
+        </column>
+
+        <column name="priority">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Priority</label>
+            </settings>
+        </column>
+
+        <column name="is_active">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Is Active</label>
+            </settings>
+        </column>
+
+        <!--        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="80">-->
+        <!--            <settings>-->
+        <!--                <filter>select</filter>-->
+        <!--                <label translate="true">Status</label>-->
+        <!--                <dataType>select</dataType>-->
+        <!--                <options class="Tigren\CustomerGroupCatalog\Model\Config\Status" />-->
+        <!--            </settings>-->
+        <!--        </column>-->
+
+        <actionsColumn name="actions" class="Tigren\CustomerGroupCatalog\Ui\Component\Listing\Grid\Column\Action">
+            <settings>
+                <indexField>rule_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>
