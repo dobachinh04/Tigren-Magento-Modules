@@ -1,0 +1,86 @@
+<?php
+
+/** @var $block Template */
+
+/** @var $testimonialViewModel TestimonialViewModel */
+
+use Tigren\Testimonial\ViewModel\TestimonialViewModel;
+use Magento\Framework\View\Element\Template;
+
+$testimonialViewModel = $block->getData('testimonial_view_model');
+$collection = $testimonialViewModel->getTestimonial(9);
+$pagerBlock = $block->getChildBlock('blog_pager');
+
+$testimonialBlock = $block->getChildBlock('testimonial');
+?>
+
+<?php
+/** @var TestimonialViewModel $testimonialViewModel */
+/** @var \Tigren\Testimonial\Model\ResourceModel\Testimonial\Collection $testimonial */
+?>
+
+<style>
+    .testimonial-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .testimonial-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 16px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .testimonial-image {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .testimonial-name {
+        font-size: 1.2em;
+        margin: 10px 0;
+    }
+
+    .testimonial-message {
+        font-size: 1em;
+        color: #333;
+        margin: 10px 0;
+    }
+
+    .testimonial-date {
+        font-size: 0.9em;
+        color: #777;
+    }
+</style>
+
+<?php if (!$collection->count()) : ?>
+    <p>There is no Testimonials in this Page</p>
+<?php else : ?>
+    <!--    --><?php //foreach ($collection as $testimonial) : ?>
+
+    <div class="testimonial-grid">
+        <?php foreach ($collection as $item): ?>
+            <div class="testimonial-card">
+                <img src="<?= $testimonialViewModel->getProfileImageUrl($item) ?>" alt="Profile Image"
+                     class="testimonial-image" />
+                <h3 class="testimonial-name"><?= htmlspecialchars($item->getData('name')) ?></h3>
+                <p class="testimonial-message"><?= htmlspecialchars($item->getData('message')) ?></p>
+                <p class="testimonial-message"><?= htmlspecialchars($item->getData('rating')) ?> Sao</p>
+                <p class="testimonial-date">Tạo Ngày: <?= date('d/m/Y', strtotime($item->getData('created_at'))) ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <!--        --><?php //= $testimonialViewModel->getTestimonialHtml($testimonialBlock, $testimonial); ?>
+    <!--    --><?php //endforeach; ?>
+
+    <?php if ($pagerBlock) : ?>
+        <?= $testimonialViewModel->getPager($collection, $pagerBlock); ?>
+    <?php endif; ?>
+<?php endif; ?>
