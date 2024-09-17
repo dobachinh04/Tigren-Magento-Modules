@@ -1,0 +1,25 @@
+<?php
+/**
+ * @var Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignStore $block;
+ */
+$blockGrid = $block->getBlockGrid();
+$gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+
+<?= $block->getGridHtml() ?>
+<input type="hidden" name="stores" data-form-part="customer_group_catalog_form" id="stores" value="" />
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Tigren_CustomerGroupCatalog/js/assign-stores": {
+                "selectedStores": <?= /* @escapeNotVerified */
+    $block->getStoresJson() ?>,
+                "gridJsObjectName": <?= /* @escapeNotVerified */
+    '"' . $gridJsObjectName . '"' ?: '{}' ?>
+    }
+}
+}
+</script>
+<script>
+    require('mage/apply/main').apply();
+</script>
