@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_product_is_salable_after">
+        <observer name="tigren_product_available" instance="Tigren\HidePriceAndCart\Observer\SalableObserver" />
+    </event>
+    <event name="sales_quote_product_add_after">
+        <observer name="tigren_product_available" instance="Tigren\HidePriceAndCart\Observer\QuoteObserver" />
+    </event>
+    <event name="catalog_product_collection_load_after">
+        <observer name="tigren_product_available" instance="Tigren\HidePriceAndCart\Observer\CollectionObserver" />
+    </event>
+    <event name="catalog_product_load_after">
+        <observer name="tigren_product_available" instance="Tigren\HidePriceAndCart\Observer\ProductObserver" />
+    </event>
+</config>
