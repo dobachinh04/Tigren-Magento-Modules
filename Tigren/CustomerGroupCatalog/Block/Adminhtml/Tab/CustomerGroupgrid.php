@@ -2,58 +2,46 @@
 
 namespace Tigren\CustomerGroupCatalog\Block\Adminhtml\Tab;
 
-use Magento\Catalog\Model\Product\Visibility;
-use Magento\Catalog\Model\ProductFactory;
+use Magento\Customer\Model\ResourceModel\Group\CollectionFactory as CustomerGroupCollectionFactory;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Registry;
 use Magento\Store\Model\Store;
-use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
+use Magento\Backend\Block\Widget\Grid\Extended;
 
-class Productgrid extends \Magento\Backend\Block\Widget\Grid\Extended
+class CustomerGroupgrid extends Extended
 {
-
     /**
      * @var Registry
      */
     protected $coreRegistry = null;
 
     /**
-     * @var ProductFactory
+     * @var CustomerGroupCollectionFactory
      */
-    protected $productFactory;
+    protected $customerGroupCollectionFactory;
 
     /**
-     * @var CollectionFactory
-     */
-    protected $productCollFactory;
-
-    /**
-     * @param \Magento\Backend\Block\Template\Context    $context
-     * @param \Magento\Backend\Helper\Data               $backendHelper
-     * @param ProductFactory      $productFactory
-     * @param Registry                $coreRegistry
-     * @param \Magento\Framework\Module\Manager          $moduleManager
+     * @param \Magento\Backend\Block\Template\Context $context
+     * @param \Magento\Backend\Helper\Data $backendHelper
+     * @param CustomerGroupCollectionFactory $customerGroupCollectionFactory
+     * @param Registry $coreRegistry
+     * @param \Magento\Framework\Module\Manager $moduleManager
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param Visibility|null                            $visibility
-     * @param array                                      $data
+     * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Template\Context $context,
         \Magento\Backend\Helper\Data $backendHelper,
-        ProductFactory $productFactory,
-        CollectionFactory $productCollFactory,
+        CustomerGroupCollectionFactory $customerGroupCollectionFactory,
         Registry $coreRegistry,
         \Magento\Framework\Module\Manager $moduleManager,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
-        Visibility $visibility = null,
         array $data = []
     ) {
-        $this->productFactory = $productFactory;
-        $this->productCollFactory = $productCollFactory;
+        $this->customerGroupCollectionFactory = $customerGroupCollectionFactory;
         $this->coreRegistry = $coreRegistry;
         $this->moduleManager = $moduleManager;
         $this->_storeManager = $storeManager;
-        $this->visibility = $visibility ?: ObjectManager::getInstance()->get(Visibility::class);
         parent::__construct($context, $backendHelper, $data);
     }
 
@@ -64,14 +52,14 @@ class Productgrid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _construct()
     {
         parent::_construct();
-        $this->setId('rh_grid_products');
-        $this->setDefaultSort('entity_id');
+        $this->setId('customer_group_grid');
+        $this->setDefaultSort('customer_group_id');
         $this->setDefaultDir('ASC');
         $this->setUseAjax(true);
-        if ($this->getRequest()->getParam('entity_id')) {
-            $this->setDefaultFilter(['in_products' => 1]);
+        if ($this->getRequest()->getParam('customer_group_id')) {
+            $this->setDefaultFilter(['in_customer_groups' => 1]);
         } else {
-            $this->setDefaultFilter(['in_products' => 0]);
+            $this->setDefaultFilter(['in_customer_groups' => 0]);
         }
         $this->setSaveParametersInSession(true);
     }
@@ -87,82 +75,28 @@ class Productgrid extends \Magento\Backend\Block\Widget\Grid\Extended
         return $this->_storeManager->getStore($storeId);
     }
 
-
     protected function _prepareCollection()
     {
         $store = $this->_getStore();
-        $collection = $this->productFactory->create()->getCollection()->addAttributeToSelect(
-            'sku'
-        )->addAttributeToSelect(
-            'name'
-        )->addAttributeToSelect(
-            'attribute_set_id'
-        )->addAttributeToSelect(
-            'type_id'
-        )->setStore(
-            $store
-        );
+        $collection = $this->customerGroupCollectionFactory->create();
+        $collection->addFieldToSelect(['customer_group_id', 'customer_group_code']);
 
-        if ($this->moduleManager->isEnabled('Magento_CatalogInventory')) {
-            $collection->joinField(
-                'qty',
-                'cataloginventory_stock_item',
-                'qty',
-                'product_id=entity_id',
-                '{{table}}.stock_id=1',
-                'left'
-            );
-        }
-        if ($store->getId()) {
-            $collection->setStoreId($store->getId());
-            $collection->addStoreFilter($store);
-            $collection->joinAttribute(
-                'name',
-                'catalog_product/name',
-                'entity_id',
-                null,
-                'inner',
-                Store::DEFAULT_STORE_ID
-            );
-            $collection->joinAttribute(
-                'status',
-                'catalog_product/status',
-                'entity_id',
-                null,
-                'inner',
-                $store->getId()
-            );
-            $collection->joinAttribute(
-                'visibility',
-                'catalog_product/visibility',
-                'entity_id',
-                null,
-                'inner',
-                $store->getId()
-            );
-            $collection->joinAttribute('price', 'catalog_product/price', 'entity_id', null, 'left', $store->getId());
-        } else {
-            $collection->addAttributeToSelect('price');
-            $collection->joinAttribute('status', 'catalog_product/status', 'entity_id', null, 'inner');
-            $collection->joinAttribute('visibility', 'catalog_product/visibility', 'entity_id', null, 'inner');
-        }
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
 
-
     protected function _addColumnFilterToCollection($column)
     {
-        if ($column->getId() == 'in_products') {
-            $productIds = $this->_getSelectedProducts();
-            if (empty($productIds)) {
-                $productIds = 0;
+        if ($column->getId() == 'in_customer_groups') {
+            $groupIds = $this->_getSelectedCustomerGroups();
+            if (empty($groupIds)) {
+                $groupIds = 0;
             }
             if ($column->getFilter()->getValue()) {
-                $this->getCollection()->addFieldToFilter('entity_id', ['in' => $productIds]);
+                $this->getCollection()->addFieldToFilter('customer_group_id', ['in' => $groupIds]);
             } else {
-                if ($productIds) {
-                    $this->getCollection()->addFieldToFilter('entity_id', ['nin' => $productIds]);
+                if ($groupIds) {
+                    $this->getCollection()->addFieldToFilter('customer_group_id', ['nin' => $groupIds]);
                 }
             }
         } else {
@@ -177,69 +111,36 @@ class Productgrid extends \Magento\Backend\Block\Widget\Grid\Extended
     protected function _prepareColumns()
     {
         $this->addColumn(
-            'in_products',
+            'in_customer_groups',
             [
                 'type' => 'checkbox',
-                'html_name' => 'products_id',
+                'html_name' => 'customer_group_ids',
                 'required' => true,
-                'values' => $this->_getSelectedProducts(),
+                'values' => $this->_getSelectedCustomerGroups(),
                 'align' => 'center',
-                'index' => 'entity_id',
+                'index' => 'customer_group_id',
             ]
         );
 
         $this->addColumn(
-            'entity_id',
+            'customer_group_id',
             [
                 'header' => __('ID'),
                 'width' => '50px',
-                'index' => 'entity_id',
+                'index' => 'customer_group_id',
                 'type' => 'number',
             ]
         );
         $this->addColumn(
-            'name',
+            'customer_group_code',
             [
-                'header' => __('Name'),
-                'index' => 'name',
+                'header' => __('Customer Group'),
+                'index' => 'customer_group_code',
                 'header_css_class' => 'col-type',
                 'column_css_class' => 'col-type',
             ]
         );
-        $this->addColumn(
-            'sku',
-            [
-                'header' => __('SKU'),
-                'index' => 'sku',
-                'header_css_class' => 'col-sku',
-                'column_css_class' => 'col-sku',
-            ]
-        );
-        $store = $this->_getStore();
-        $this->addColumn(
-            'price',
-            [
-                'header' => __('Price'),
-                'type' => 'price',
-                'currency_code' => $store->getBaseCurrency()->getCode(),
-                'index' => 'price',
-                'header_css_class' => 'col-price',
-                'column_css_class' => 'col-price',
-            ]
-        );
-        $this->addColumn(
-            'position',
-            [
-                'header' => __('Position'),
-                'name' => 'position',
-                'width' => 60,
-                'type' => 'number',
-                'validate_class' => 'validate-number',
-                'index' => 'position',
-                'editable' => true,
-                'edit_only' => true,
-            ]
-        );
+
         return parent::_prepareColumns();
     }
 
@@ -248,33 +149,33 @@ class Productgrid extends \Magento\Backend\Block\Widget\Grid\Extended
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/rule/grids', ['_current' => true]);
+        return $this->getUrl('*/rule/customergrids', ['_current' => true]);
     }
 
     /**
      * @return array
      */
-    protected function _getSelectedProducts()
+    protected function _getSelectedCustomerGroups()
     {
-        $products = array_keys($this->getSelectedProducts());
-        return $products;
+        $groupIds = array_keys($this->getSelectedCustomerGroups());
+        return $groupIds;
     }
 
     /**
      * @return array
      */
-    public function getSelectedProducts()
+    public function getSelectedCustomerGroups()
     {
-        $id = $this->getRequest()->getParam('entity_id');
-        $model = $this->productCollFactory->create()->addFieldToFilter('entity_id', $id);
-        $grids = [];
+        $id = $this->getRequest()->getParam('customer_group_id');
+        $model = $this->customerGroupCollectionFactory->create()->addFieldToFilter('customer_group_id', $id);
+        $groups = [];
         foreach ($model as $key => $value) {
-            $grids[] = $value->getProductId();
+            $groups[] = $value->getCustomerGroupId();
         }
-        $prodId = [];
-        foreach ($grids as $obj) {
-            $prodId[$obj] = ['position' => "0"];
+        $groupId = [];
+        foreach ($groups as $obj) {
+            $groupId[$obj] = ['position' => "0"];
         }
-        return $prodId;
+        return $groupId;
     }
 }

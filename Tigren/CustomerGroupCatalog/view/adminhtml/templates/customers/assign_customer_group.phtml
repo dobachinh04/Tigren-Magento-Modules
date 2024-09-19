@@ -1,0 +1,25 @@
+    <?php
+    /**
+     * @var Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignCustomerGroup $block ;
+     */
+    $blockGrid = $block->getBlockGrid();
+    $gridJsObjectName = $blockGrid->getJsObjectName();
+    ?>
+
+    <?= $block->getGridHtml() ?>
+    <input type="hidden" name="customer_groups" data-form-part="customer_group_catalog_form" id="customer_groups" value="" />
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Tigren_CustomerGroupCatalog/js/assign-customergroups": {
+                    "selectedCustomerGroups": <?= /* @escapeNotVerified */
+        $block->getCustomerGroupsJson() ?>,
+                    "gridJsObjectName": <?= /* @escapeNotVerified */
+        '"' . $gridJsObjectName . '"' ?: '{}' ?>
+        }
+    }
+    }
+    </script>
+    <script>
+        require('mage/apply/main').apply();
+    </script>

@@ -1,36 +1,36 @@
 <?php
 
-namespace Tigren\Testimonial\Controller\Adminhtml\Question;
+namespace Tigren\CustomerGroupCatalog\Controller\Adminhtml\Rule;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\View\Result\PageFactory;
-use Tigren\Testimonial\Model\TestimonialFactory;
+use Tigren\CustomerGroupCatalog\Model\CustomerGroupCatalogFactory;
 
 class Edit extends Action
 {
     protected $resultPageFactory;
-    protected $testimonialFactory;
+    protected $customerGroupCatalogFactory;
 
     public function __construct(
         Action\Context $context,
         PageFactory $resultPageFactory,
-        TestimonialFactory $testimonialFactory
+        CustomerGroupCatalogFactory $customerGroupCatalogFactory
     ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
-        $this->testimonialFactory = $testimonialFactory;
+        $this->customerGroupCatalogFactory = $customerGroupCatalogFactory;
     }
 
     public function execute()
     {
         $id = $this->getRequest()->getParam('id');
-        $model = $this->testimonialFactory->create();
+        $model = $this->customerGroupCatalogFactory->create();
 
-        // Load testimonial nếu ID tồn tại
+        // Load Customer Group Catalog Rule nếu ID tồn tại
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
-                $this->messageManager->addErrorMessage(__('This testimonial no longer exists.'));
+                $this->messageManager->addErrorMessage(__('This Customer Group Catalog Rule no longer exists.'));
                 return $this->_redirect('*/*/');
             }
         }
@@ -38,7 +38,7 @@ class Edit extends Action
         // Thiết lập tiêu đề trang
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend(
-            $model->getId() ? __('Edit Testimonial') : __('New Testimonial')
+            $model->getId() ? __('Edit Customer Group Catalog Rule') : __('New Customer Group Catalog Rule')
         );
 
         return $resultPage;

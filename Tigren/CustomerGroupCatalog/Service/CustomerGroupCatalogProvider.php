@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tigren\Testimonial\Service;
+namespace Tigren\CustomerGroupCatalog\Service;
 
 use Magento\Framework\DB\Select;
-use Tigren\Testimonial\Model\ResourceModel\Testimonial\Collection;
-use Tigren\Testimonial\Model\ResourceModel\Testimonial\CollectionFactory;
+use Tigren\CustomerGroupCatalog\Model\ResourceModel\CustomerGroupCatalog\Collection;
+use Tigren\CustomerGroupCatalog\Model\ResourceModel\CustomerGroupCatalog\CollectionFactory;
 
-class TestimonialProvider
+class CustomerGroupCatalogProvider
 {
     public function __construct(
         private CollectionFactory $collectionFactory
@@ -16,10 +16,10 @@ class TestimonialProvider
 
     }
 
-    public function getTestimonial(int $limit, int $currentPage): Collection
+    public function getCustomerGroupCatalog(int $limit, int $currentPage): Collection
     {
         $collection = $this->getCollection($limit);
-        $collection->setOrder('created_at', Select::SQL_DESC);
+        $collection->setOrder('end_time', Select::SQL_DESC);
         $collection->setPageSize($limit);
         $collection->setCurPage($currentPage);
 

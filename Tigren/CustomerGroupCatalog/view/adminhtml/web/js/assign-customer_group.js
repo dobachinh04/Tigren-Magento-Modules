@@ -4,46 +4,48 @@ define([
     'use strict';
 
     return function (config) {
-        var selectedProducts = config.selectedProducts,
-            categoryProducts = $H(selectedProducts),
+        var selectedCustomerGroups = config.selectedCustomerGroups,
+            customerGroupMap = $H(selectedCustomerGroups),
             gridJsObject = window[config.gridJsObjectName],
             tabIndex = 1000;
+
         /**
-         * Show selected product when edit form in associated product grid
+         * Show selected customer groups when edit form in associated customer group grid
          */
-        $('rh_products').value = Object.toJSON(categoryProducts);
+        $('rh_customer_groups').value = Object.toJSON(customerGroupMap);
+
         /**
-         * Register Category Product
+         * Register Customer Group
          *
          * @param {Object} grid
          * @param {Object} element
          * @param {Boolean} checked
          */
-        function registerCategoryProduct(grid, element, checked) {
+        function registerCustomerGroup(grid, element, checked) {
             if (checked) {
                 if (element.positionElement) {
                     element.positionElement.disabled = false;
-                    categoryProducts.set(element.value, element.positionElement.value);
+                    customerGroupMap.set(element.value, element.positionElement.value);
                 }
             } else {
                 if (element.positionElement) {
                     element.positionElement.disabled = true;
                 }
-                categoryProducts.unset(element.value);
+                customerGroupMap.unset(element.value);
             }
-            $('rh_products').value = Object.toJSON(categoryProducts);
+            $('rh_customer_groups').value = Object.toJSON(customerGroupMap);
             grid.reloadParams = {
-                'selected_products[]': categoryProducts.keys()
+                'selected_customer_groups[]': customerGroupMap.keys()
             };
         }
 
         /**
-         * Click on product row
+         * Click on customer group row
          *
          * @param {Object} grid
          * @param {String} event
          */
-        function categoryProductRowClick(grid, event) {
+        function customerGroupRowClick(grid, event) {
             var trElement = Event.findElement(event, 'tr'),
                 isInput = Event.element(event).tagName === 'INPUT',
                 checked = false,
@@ -60,7 +62,7 @@ define([
         }
 
         /**
-         * Change product position
+         * Change customer group position
          *
          * @param {String} event
          */
@@ -68,18 +70,18 @@ define([
             var element = Event.element(event);
 
             if (element && element.checkboxElement && element.checkboxElement.checked) {
-                categoryProducts.set(element.checkboxElement.value, element.value);
-                $('rh_products').value = Object.toJSON(categoryProducts);
+                customerGroupMap.set(element.checkboxElement.value, element.value);
+                $('rh_customer_groups').value = Object.toJSON(customerGroupMap);
             }
         }
 
         /**
-         * Initialize category product row
+         * Initialize customer group row
          *
          * @param {Object} grid
          * @param {String} row
          */
-        function categoryProductRowInit(grid, row) {
+        function customerGroupRowInit(grid, row) {
             var checkbox = $(row).getElementsByClassName('checkbox')[0],
                 position = $(row).getElementsByClassName('input-text')[0];
 
@@ -92,13 +94,13 @@ define([
             }
         }
 
-        gridJsObject.rowClickCallback = categoryProductRowClick;
-        gridJsObject.initRowCallback = categoryProductRowInit;
-        gridJsObject.checkboxCheckCallback = registerCategoryProduct;
+        gridJsObject.rowClickCallback = customerGroupRowClick;
+        gridJsObject.initRowCallback = customerGroupRowInit;
+        gridJsObject.checkboxCheckCallback = registerCustomerGroup;
 
         if (gridJsObject.rows) {
             gridJsObject.rows.each(function (row) {
-                categoryProductRowInit(gridJsObject, row);
+                customerGroupRowInit(gridJsObject, row);
             });
         }
     };

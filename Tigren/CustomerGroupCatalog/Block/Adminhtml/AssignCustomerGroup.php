@@ -4,11 +4,10 @@ namespace Tigren\CustomerGroupCatalog\Block\Adminhtml;
 
 use Magento\Backend\Block\Template;
 use Magento\Backend\Block\Template\Context;
-use Magento\Catalog\Block\Adminhtml\Category\Tab\Product;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Json\EncoderInterface;
 use Magento\Framework\Registry;
-use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
+use Magento\Customer\Model\ResourceModel\Group\CollectionFactory as CustomerGroupCollectionFactory;
 use Magento\Framework\View\Element\BlockInterface;
 
 class AssignCustomerGroup extends Template
@@ -21,7 +20,7 @@ class AssignCustomerGroup extends Template
     protected $_template = 'customers/assign_customer_group.phtml';
 
     /**
-     * @var Product
+     * @var BlockInterface
      */
     protected $blockGrid;
 
@@ -36,27 +35,27 @@ class AssignCustomerGroup extends Template
     protected $jsonEncoder;
 
     /**
-     * @var CollectionFactory
+     * @var CustomerGroupCollectionFactory
      */
-    protected $productFactory;
+    protected $customerGroupFactory;
 
     /**
      * @param Context $context
      * @param Registry $registry
      * @param EncoderInterface $jsonEncoder
-     * @param CollectionFactory $productFactory
+     * @param CustomerGroupCollectionFactory $customerGroupFactory
      * @param array $data
      */
     public function __construct(
         Context $context,
         Registry $registry,
         EncoderInterface $jsonEncoder,
-        CollectionFactory $productFactory,
+        CustomerGroupCollectionFactory $customerGroupFactory,
         array $data = []
     ) {
         $this->registry = $registry;
         $this->jsonEncoder = $jsonEncoder;
-        $this->productFactory = $productFactory;
+        $this->customerGroupFactory = $customerGroupFactory;
         parent::__construct($context, $data);
     }
 
@@ -70,8 +69,8 @@ class AssignCustomerGroup extends Template
     {
         if (null === $this->blockGrid) {
             $this->blockGrid = $this->getLayout()->createBlock(
-                'Tigren\CustomerGroupCatalog\Block\Adminhtml\Tab\Productgrid',
-                'category.product.grid'
+                'Tigren\CustomerGroupCatalog\Block\Adminhtml\Tab\CustomerGroupgrid',
+                'customer.group.grid'
             );
         }
         return $this->blockGrid;
@@ -90,20 +89,16 @@ class AssignCustomerGroup extends Template
     /**
      * @return string
      */
-    public function getProductsJson()
+    public function getCustomerGroupsJson()
     {
         $entity_id = $this->getRequest()->getParam('entity_id');
-        $productFactory = $this->productFactory->create();
-        $productFactory->addFieldToSelect(['product_id', 'position']);
-        $productFactory->addFieldToFilter('entity_id', ['eq' => $entity_id]);
+        $customerGroupFactory = $this->customerGroupFactory->create();
+        $customerGroupFactory->addFieldToSelect(['customer_group_id', 'customer_group_code']);
         $result = [];
-        if (!empty($productFactory->getData())) {
-            foreach ($productFactory->getData() as $rhProducts) {
-                $result[$rhProducts['product_id']] = '';
-            }
-            return $this->jsonEncoder->encode($result);
+        foreach ($customerGroupFactory->getData() as $group) {
+            $result[$group['customer_group_id']] = $group['customer_group_code'];
         }
-        return '{}';
+        return $this->jsonEncoder->encode($result);
     }
 
     public function getItem()

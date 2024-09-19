@@ -2,85 +2,100 @@
 
 /** @var $block Template */
 
-/** @var $testimonialViewModel TestimonialViewModel */
+/** @var $customerGroupCatalogViewModel CustomerGroupCatalogViewModel */
 
-use Tigren\Testimonial\ViewModel\TestimonialViewModel;
+use Tigren\CustomerGroupCatalog\ViewModel\CustomerGroupCatalogViewModel;
 use Magento\Framework\View\Element\Template;
 
-$testimonialViewModel = $block->getData('testimonial_view_model');
-$collection = $testimonialViewModel->getTestimonial(9);
+$customerGroupCatalogViewModel = $block->getData('customer_group_catalog_view_model');
+$collection = $customerGroupCatalogViewModel->getCustomerGroupCatalog(5);
 $pagerBlock = $block->getChildBlock('blog_pager');
 
-$testimonialBlock = $block->getChildBlock('testimonial');
+$testimonialBlock = $block->getChildBlock('customerGroupCatalog');
 ?>
 
-<?php
-/** @var TestimonialViewModel $testimonialViewModel */
-/** @var \Tigren\Testimonial\Model\ResourceModel\Testimonial\Collection $testimonial */
-?>
+    <style>
+        /* Styles for data grid */
+        .data-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+        }
 
-<style>
-    .testimonial-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        margin-bottom: 20px;
-    }
+        .data-grid th, .data-grid td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
 
-    .testimonial-card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 16px;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
+        .data-grid th {
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
 
-    .testimonial-image {
-        width: 200px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 8px;
-    }
+        .data-grid tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-    .testimonial-name {
-        font-size: 1.2em;
-        margin: 10px 0;
-    }
-
-    .testimonial-message {
-        font-size: 1em;
-        color: #333;
-        margin: 10px 0;
-    }
-
-    .testimonial-date {
-        font-size: 0.9em;
-        color: #777;
-    }
-</style>
+        .data-grid tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 
 <?php if (!$collection->count()) : ?>
-    <p>There is no Testimonials in this Page</p>
+    <p>There are no discount in this page</p>
 <?php else : ?>
-    <!--    --><?php //foreach ($collection as $testimonial) : ?>
-
-    <div class="testimonial-grid">
-        <?php foreach ($collection as $item): ?>
-            <div class="testimonial-card">
-                <img src="<?= $testimonialViewModel->getProfileImageUrl($item) ?>" alt="Profile Image"
-                     class="testimonial-image" />
-                <h3 class="testimonial-name"><?= htmlspecialchars($item->getData('name')) ?></h3>
-                <p class="testimonial-message"><?= htmlspecialchars($item->getData('message')) ?></p>
-                <p class="testimonial-message"><?= htmlspecialchars($item->getData('rating')) ?> Sao</p>
-                <p class="testimonial-date">Tạo Ngày: <?= date('d/m/Y', strtotime($item->getData('created_at'))) ?></p>
-            </div>
-        <?php endforeach; ?>
+    <div class="actions-toolbar">
+        <div class="actions">
+            <a href="http://magento2.com/index.php/discount/history" class="action primary">
+                <span>Discount Usage History</span>
+            </a>
+        </div>
     </div>
-    <!--        --><?php //= $testimonialViewModel->getTestimonialHtml($testimonialBlock, $testimonial); ?>
-    <!--    --><?php //endforeach; ?>
+
+    <table class="data-grid">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Customer Group</th>
+            <th>Store</th>
+            <th>Product</th>
+            <th>Discount Amount</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Priority</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($collection as $item): ?>
+            <?php
+            // Format date to DD/MM/YYYY
+            $startTime = $item->getData('start_time');
+            $endTime = $item->getData('end_time');
+            $formattedStartTime = $startTime ? date('d/m/Y', strtotime($startTime)) : 'N/A';
+            $formattedEndTime = $endTime ? date('d/m/Y', strtotime($endTime)) : 'N/A';
+            ?>
+            <tr>
+                <td><?= htmlspecialchars($item->getData('rule_id')) ?></td>
+                <td><?= htmlspecialchars($item->getData('name')) ?></td>
+                <td><?= htmlspecialchars($item->getData('customer_group_ids')) ?></td>
+                <td><?= htmlspecialchars($item->getData('store_ids')) ?></td>
+                <td><?= htmlspecialchars($item->getData('product_ids')) ?></td>
+                <td><?= htmlspecialchars($item->getData('discount_amount')) ?></td>
+                <td><?= htmlspecialchars($formattedStartTime) ?></td>
+                <td><?= htmlspecialchars($formattedEndTime) ?></td>
+                <td><?= htmlspecialchars($item->getData('priority')) ?></td>
+                <td><?= htmlspecialchars($item->getData('is_active') ? 'Active' : 'Inactive') ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 
     <?php if ($pagerBlock) : ?>
-        <?= $testimonialViewModel->getPager($collection, $pagerBlock); ?>
+        <?= $customerGroupCatalogViewModel->getPager($collection, $pagerBlock); ?>
     <?php endif; ?>
 <?php endif; ?>

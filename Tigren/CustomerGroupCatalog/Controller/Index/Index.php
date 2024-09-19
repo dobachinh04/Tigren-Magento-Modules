@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tigren\CustomerGroupCatalog\Controller\Adminhtml\Index;
+namespace Tigren\CustomerGroupCatalog\Controller\Index;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\Controller\ResultInterface;
@@ -19,7 +19,7 @@ class Index implements HttpGetActionInterface
     public function execute(): ResultInterface
     {
         $page = $this->pageFactory->create();
-        $page->getConfig()->getTitle()->set(__('Discount'));
+        $page->getConfig()->getTitle()->set(__('Tigren Discount'));
 
         return $page;
     }

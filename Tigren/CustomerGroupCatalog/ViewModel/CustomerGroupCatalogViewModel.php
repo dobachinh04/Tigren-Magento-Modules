@@ -9,27 +9,27 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 
-use Tigren\Testimonial\Model\ResourceModel\Testimonial\Collection;
-use Tigren\Testimonial\Service\TestimonialProvider;
-use Tigren\Testimonial\Model\Testimonial;
+use Tigren\CustomerGroupCatalog\Model\ResourceModel\CustomerGroupCatalog\Collection;
+use Tigren\CustomerGroupCatalog\Service\CustomerGroupCatalogProvider;
+use Tigren\CustomerGroupCatalog\Model\CustomerGroupCatalog;
 use Magento\Framework\App\RequestInterface;
 use Magento\Theme\Block\Html\Pager;
 use Magento\Framework\View\Element\Template;
 
-class TestimonialViewModel implements ArgumentInterface
+class CustomerGroupCatalogViewModel implements ArgumentInterface
 {
     public function __construct(
-        private TestimonialProvider $testimonialProvider,
+        private CustomerGroupCatalogProvider $customerGroupCatalogProvider,
         private RequestInterface $request,
-        private UrlInterface $url,
-        private StoreManagerInterface $storeManager
+//        private UrlInterface $url,
+//        private StoreManagerInterface $storeManager
     ) {
 
     }
 
-    public function getTestimonial(int $limit): Collection
+    public function getCustomerGroupCatalog(int $limit): Collection
     {
-        return $this->testimonialProvider->getTestimonial($limit, $this->getCurrentPage());
+        return $this->customerGroupCatalogProvider->getCustomerGroupCatalog($limit, $this->getCurrentPage());
     }
 
     private function getCurrentPage(): int
@@ -49,18 +49,18 @@ class TestimonialViewModel implements ArgumentInterface
         return $pagerBlock->toHtml();
     }
 
-    public function getTestimonialHtml(Template $block, Testimonial $testimonial):string
+    public function getCustomerGroupCatalogHtml(Template $block, CustomerGroupCatalog $customerGroupCatalog): string
     {
-        $block->setData('testimonial', $testimonial);
+        $block->setData('customerGroupCatalog', $customerGroupCatalog);
         return $block->toHtml();
     }
 
-    public function getProfileImageUrl(Testimonial $testimonial): string
-    {
-        $filename = $testimonial->getData('profile_image');
-        $profile_image_path = 'tmp/imageUploader/images/';
-        $mediaUrl = $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
-
-        return $mediaUrl . $profile_image_path . $filename;
-    }
+    //    public function getProfileImageUrl(CustomerGroupCatalog $customerGroupCatalog): string
+    //    {
+    //        $filename = $customerGroupCatalog->getData('profile_image');
+    //        $profile_image_path = 'tmp/imageUploader/images/';
+    //        $mediaUrl = $this->storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA);
+    //
+    //        return $mediaUrl . $profile_image_path . $filename;
+    //    }
 }

@@ -2,19 +2,11 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceBlock name="catalog.topnav">
-            <!-- Block cho menu Tigren Testimonial -->
-            <block class="Tigren\Testimonial\Block\CustomLink" name="testimonial-link">
+            <!-- Block cho menu Tigren Customer Group Catalog -->
+            <block class="Tigren\CustomerGroupCatalog\Block\CustomLink" name="customer-group-catalog-link">
                 <arguments>
-                    <argument name="label" xsi:type="string">Tigren Testimonial</argument>
-                    <argument name="path" xsi:type="string">http://magento2.com/index.php/testimonial</argument>
-                </arguments>
-            </block>
-
-            <!-- Block cho menu Add Testimonial -->
-            <block class="Tigren\Testimonial\Block\CustomLink" name="add-testimonial-link">
-                <arguments>
-                    <argument name="label" xsi:type="string">Add Testimonial</argument>
-                    <argument name="path" xsi:type="string">http://magento2.com/index.php/testimonial/index/add</argument>
+                    <argument name="label" xsi:type="string">Tigren Discount</argument>
+                    <argument name="path" xsi:type="string">http://magento2.com/index.php/discount</argument>
                 </arguments>
             </block>
         </referenceBlock>

@@ -8,7 +8,7 @@ use Magento\Framework\Controller\Result\Raw;
 use Magento\Framework\Controller\Result\RawFactory;
 use Magento\Framework\View\LayoutFactory;
 
-class Grids extends Action
+class StoreGrids extends Action
 {
     /**
      * @var RawFactory
@@ -43,8 +43,8 @@ class Grids extends Action
         $resultRaw = $this->resultRawFactory->create();
         return $resultRaw->setContents(
             $this->layoutFactory->create()->createBlock(
-                'Tigren\CustomerGroupCatalog\Block\Adminhtml\Tab\CustomerGroupgrid',
-                'rh.custom.tab.customergroupgrid'
+                'Tigren\CustomerGroupCatalog\Block\Adminhtml\Tab\Storegrid', // Thay đổi block class ở đây
+                'rh.custom.tab.storegrid' // Thay đổi tên khối ở đây
             )->toHtml()
         );
     }

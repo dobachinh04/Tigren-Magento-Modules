@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="tigren_shipping_restrictions_rule" resource="default" engine="innodb" comment="Tigren Shipping Restrictions Rules">
+        <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Rule ID" />
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Rule Name" />
+        <column xsi:type="text" name="description" nullable="true" comment="Rule Description" />
+        <column xsi:type="smallint" name="status" nullable="false" default="1" comment="Status" />
+        <column xsi:type="varchar" name="store_ids" nullable="false" length="255" comment="Store IDs" />
+        <column xsi:type="varchar" name="customer_group_ids" nullable="false" length="255" comment="Customer Group IDs" />
+        <column xsi:type="smallint" name="discard_subsequent" nullable="false" default="0" comment="Discard Subsequent Rules" />
+        <column xsi:type="int" name="priority" nullable="false" default="0" comment="Rule Priority" />
+        <column xsi:type="date" name="from_date" nullable="true" comment="From Date" />
+        <column xsi:type="date" name="to_date" nullable="true" comment="To Date" />
+        <column xsi:type="text" name="conditions_serialized" nullable="true" comment="Serialized Conditions" />
+        <!--        <index name="TIGREN_SHIPPING_RESTRICTIONS_RULE_IDX" xsi:type="btree">-->
+        <!--            <field name="rule_id"/>-->
+        <!--        </index>-->
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rule_id" />
+        </constraint>
+    </table>
+</schema>

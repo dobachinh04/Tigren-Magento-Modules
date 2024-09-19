@@ -1,25 +1,25 @@
 <?php
 
-namespace Tigren\Testimonial\Controller\Adminhtml\Question;
+namespace Tigren\CustomerGroupCatalog\Controller\Adminhtml\Rule;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\RedirectFactory;
-use Tigren\Testimonial\Model\TestimonialFactory;
+use Tigren\CustomerGroupCatalog\Model\CustomerGroupCatalogFactory;
 use Magento\Framework\Exception\LocalizedException;
 
 class Delete extends Action
 {
     protected $resultRedirectFactory;
-    protected $testimonialFactory;
+    protected $customerGroupCatalogFactory;
 
     public function __construct(
         Action\Context $context,
         RedirectFactory $resultRedirectFactory,
-        TestimonialFactory $testimonialFactory
+        CustomerGroupCatalogFactory $customerGroupCatalogFactory
     ) {
         parent::__construct($context);
         $this->resultRedirectFactory = $resultRedirectFactory;
-        $this->testimonialFactory = $testimonialFactory;
+        $this->customerGroupCatalogFactory = $customerGroupCatalogFactory;
     }
 
     public function execute()
@@ -29,7 +29,7 @@ class Delete extends Action
 
         if ($id) {
             try {
-                $model = $this->testimonialFactory->create()->load($id);
+                $model = $this->customerGroupCatalogFactory->create()->load($id);
 
                 if (!$model->getId()) {
                     $this->messageManager->addErrorMessage(__('The item no longer exists.'));

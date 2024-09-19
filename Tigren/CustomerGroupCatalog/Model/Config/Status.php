@@ -1,6 +1,6 @@
 <?php
 
-namespace Tigren\Testimonial\Model\Config;
+namespace Tigren\CustomerGroupCatalog\Model\Config;
 
 use Magento\Framework\Data\OptionSourceInterface;
 

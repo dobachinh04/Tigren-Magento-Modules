@@ -1,6 +1,6 @@
 <?php
 
-namespace Tigren\CustomerGroupCatalog\Model\Config;
+namespace Tigren\ShippingRestrictions\Model\Config;
 
 use Magento\Framework\Data\OptionSourceInterface;
 

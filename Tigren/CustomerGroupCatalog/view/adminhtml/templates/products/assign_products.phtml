@@ -1,0 +1,25 @@
+<?php
+/**
+ * @var Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignProducts $block ;
+ */
+$blockGrid = $block->getBlockGrid();
+$gridJsObjectName = $blockGrid->getJsObjectName();
+?>
+
+<?= $block->getGridHtml() ?>
+<input type="hidden" name="rh_products" data-form-part="customer_group_catalog_form" id="rh_products" value="" />
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Tigren_CustomerGroupCatalog/js/assign-products": {
+                "selectedProducts": <?= /* @escapeNotVerified */
+    $block->getProductsJson() ?>,
+                "gridJsObjectName": <?= /* @escapeNotVerified */
+    '"' . $gridJsObjectName . '"' ?: '{}' ?>
+    }
+}
+}
+</script>
+<script>
+    require('mage/apply/main').apply();
+</script>

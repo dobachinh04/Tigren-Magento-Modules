@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/config.xsd">
+    <default>
+        <tigren_producthideprice>
+            <general>
+                <enabled>0</enabled>
+                <wording_hide_price>Login first to see price</wording_hide_price>
+            </general>
+        </tigren_producthideprice>
+    </default>
+</config>

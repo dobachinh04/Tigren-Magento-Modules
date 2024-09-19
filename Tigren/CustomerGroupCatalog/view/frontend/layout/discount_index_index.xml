@@ -1,28 +1,28 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <title>Tigren Testimonial - Home</title>
+        <title>Tigren Discount</title>
     </head>
     <body>
         <referenceBlock name="page.main.title">
             <action method="setPageTitle">
-                <argument name="title" xsi:type="string">Tigren Testimonial - Home</argument>
+                <argument name="title" xsi:type="string">Tigren Discount</argument>
             </action>
         </referenceBlock>
 
         <referenceBlock name="content">
-            <block class="Magento\Framework\View\Element\Template" template="Tigren_Testimonial::list_testimonial.phtml" as="testimonial">
+            <block class="Magento\Framework\View\Element\Template" template="Tigren_CustomerGroupCatalog::list_discount.phtml" as="discount">
                 <arguments>
-                    <argument name="testimonial_view_model" xsi:type="object">Tigren\Testimonial\ViewModel\TestimonialViewModel</argument>
+                    <argument name="customer_group_catalog_view_model" xsi:type="object">Tigren\CustomerGroupCatalog\ViewModel\CustomerGroupCatalogViewModel</argument>
                 </arguments>
 
                 <block class="Magento\Theme\Block\Html\Pager" as="blog_pager" />
 
-                <block template="Tigren_Testimonial::single_testimonial.phtml" as="single_testimonial">
-                    <arguments>
-                        <argument name="testimonial_view_model" xsi:type="object">Tigren\Testimonial\ViewModel\SingleTestimonial</argument>
-                    </arguments>
-                </block>
+                <!--                <block template="Tigren_Testimonial::single_testimonial.phtml" as="single_testimonial">-->
+                <!--                    <arguments>-->
+                <!--                        <argument name="testimonial_view_model" xsi:type="object">Tigren\CustomerGroupCatalog\ViewModel\CustomerGroupCatalogViewModel</argument>-->
+                <!--                    </arguments>-->
+                <!--                </block>-->
             </block>
         </referenceBlock>
     </body>

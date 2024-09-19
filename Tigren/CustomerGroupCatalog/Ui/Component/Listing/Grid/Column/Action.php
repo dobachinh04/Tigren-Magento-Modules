@@ -55,6 +55,7 @@ class Action extends Column
                                 'customer_group_catalog/rule/delete',
                                 ['id' => $item['rule_id']]
                             ),
+
                             'label' => __('Delete'),
                             'confirm' => [
                                 'title' => __('Delete %1', $name),

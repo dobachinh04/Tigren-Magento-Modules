@@ -2,13 +2,22 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Menu/etc/menu.xsd">
     <menu>
-        <add id="Tigren_CustomerGroupCatalog::customer_group_catalog"
-             title="Customer Group Catalog Rules"
-             translate="title"
+        <!-- First-level menu -->
+        <add id="Tigren::first_level"
+             title="Tigren Modules"
              module="Tigren_CustomerGroupCatalog"
-             sortOrder="0"
-             parent="Magento_Backend::content_elements"
-                 action="customer_group_catalog/rule/index"
-             resource="Tigren_CustomerGroupCatalog::customer_group_catalog" />
+             sortOrder="10"
+             resource="Magento_Backend::content"
+        />
+
+        <!-- Second-level menu -->
+        <add id="Tigren_CustomerGroupCatalog::second_level"
+             title="Customer Group Catalog Rules"
+             module="Tigren_CustomerGroupCatalog"
+             sortOrder="2"
+             action="customer_group_catalog/rule/index"
+             parent="Tigren::first_level"
+             resource="Magento_Backend::content"
+        />
     </menu>
 </config>

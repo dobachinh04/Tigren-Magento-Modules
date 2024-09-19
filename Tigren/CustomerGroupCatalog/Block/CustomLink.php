@@ -1,6 +1,6 @@
 <?php
 
-namespace Tigren\Testimonial\Block;
+namespace Tigren\CustomerGroupCatalog\Block;
 
 use Magento\Framework\View\Element\Html\Link;
 

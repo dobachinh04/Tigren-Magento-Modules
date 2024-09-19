@@ -4,6 +4,7 @@ namespace Tigren\CustomerGroupCatalog\Controller\Adminhtml\Rule;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\Controller\Result\Raw;
 use Magento\Framework\Controller\Result\RawFactory;
 use Magento\Framework\View\LayoutFactory;
 
@@ -11,12 +12,12 @@ class Grids extends \Magento\Backend\App\Action
 {
 
     /**
-     * @var \Magento\Framework\Controller\Result\RawFactory
+     * @var RawFactory
      */
     protected $resultRawFactory;
 
     /**
-     * @var \Magento\Framework\View\LayoutFactory
+     * @var LayoutFactory
      */
     protected $layoutFactory;
 
@@ -36,14 +37,14 @@ class Grids extends \Magento\Backend\App\Action
     }
 
     /**
-     * @return \Magento\Framework\Controller\Result\Raw
+     * @return Raw
      */
     public function execute()
     {
         $resultRaw = $this->resultRawFactory->create();
         return $resultRaw->setContents(
             $this->layoutFactory->create()->createBlock(
-                'RH\CustProductGrid\Block\Adminhtml\Tab\Productgrid',
+                'Tigren\CustomerGroupCatalog\Block\Adminhtml\Tab\Productgrid',
                 'rh.custom.tab.productgrid'
             )->toHtml()
         );

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<!--    <type name="Magento\Catalog\Block\Product\View">-->
+<!--        <plugin name="hide_price_product_view" type="Tigren\HidePrice\Plugin\Catalog\Product\View" />-->
+<!--    </type>-->
+<!--    <type name="Magento\Catalog\Block\Product\ProductList\Item\Block">-->
+<!--        <plugin name="hide_price_product_list" type="Tigren\HidePrice\Plugin\Catalog\Product\ProductList" />-->
+<!--    </type>-->
+</config>
+
+
+
+<!--<?xml version="1.0"?>-->
+<!--<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">-->
+<!--    <type name="Tigren\HidePrice\Observer\HidePriceObserver">-->
+<!--        <arguments>-->
+<!--            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session</argument>-->
+<!--            <argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
+<!--    <type name="Tigren\HidePrice\Observer\HidePriceProductViewObserver">-->
+<!--        <arguments>-->
+<!--            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session</argument>-->
+<!--            <argument name="logger" xsi:type="object">Psr\Log\LoggerInterface</argument>-->
+<!--        </arguments>-->
+<!--    </type>-->
+<!--</config>-->
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tigren\Testimonial\Controller\Adminhtml\Question;
+namespace Tigren\CustomerGroupCatalog\Controller\Adminhtml\Rule;
 
 use Exception;
-use Tigren\Testimonial\Model\TestimonialFactory;
+use Tigren\CustomerGroupCatalog\Model\CustomerGroupCatalogFactory;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
@@ -15,64 +15,58 @@ use Magento\Framework\Controller\ResultFactory;
 class Save extends Action
 {
     /**
-     * @var TestimonialFactory
+     * @var CustomerGroupCatalogFactory
      */
-    private $testimonialFactory;
+    private $customerGroupCatalogFactory;
 
     /**
      * Save constructor.
      * @param Context $context
-     * @param TestimonialFactory $testimonialFactory
+     * @param CustomerGroupCatalogFactory $customerGroupCatalogFactory
      */
     public function __construct(
         Context $context,
-        TestimonialFactory $testimonialFactory
+        CustomerGroupCatalogFactory $customerGroupCatalogFactory
     ) {
         parent::__construct($context);
-        $this->testimonialFactory = $testimonialFactory;
+        $this->customerGroupCatalogFactory = $customerGroupCatalogFactory;
     }
 
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
 
-        //                var_dump($data);
-        //                dd();
-        if (!empty($data['profile_image'][0]['name']) && isset($data['profile_image'][0]['tmp_name'])) {
-            $data['profile_image'] = $data['profile_image'][0]['name'];
-        } else {
-            unset($data['profile_image']);
-        }
-        //        $data['update_time'] = null;
+        $id = !empty($data['rule_id']) ? $data['rule_id'] : null;
 
-        $id = !empty($data['entity_id']) ? $data['entity_id'] : null;
-        $image = !empty($data['profile_image']) ? $data['profile_image'] : null;
-
-        // Chuẩn bị dữ liệu
         $newData = [
             'name' => $data['name'] ?? '',
-            'email' => $data['email'] ?? '',
-            'company' => $data['company'] ?? '',
-            'rating' => $data['rating'] ?? '',
-            'created_at' => $data['created_at'] ?? '',
-            'profile_image' => $image ?? '',
-            'status' => isset($data['status']) ? (int)$data['status'] : 0,
-            'message' => $data['message'] ?? '',
+
+            // Giả sử đây là mảng, chuyển thành chuỗi phân cách bằng dấu phẩy
+            'customer_group_ids' => isset($data['customer_group_ids']) ? implode(',', $data['customer_group_ids']) : '',
+            'store_ids' => isset($data['store_ids']) ? implode(',', $data['store_ids']) : '',
+//            'product_ids' => isset($data['product_ids']) ? implode(',', $data['product_ids']) : '',
+
+            'discount_amount' => $data['discount_amount'] ?? '',
+            'start_time' => $data['start_time'] ?? '',
+            'end_time' => $data['end_time'] ?? '',
+            'priority' => $data['priority'] ?? '',
+            'product_ids' => $data['product_ids'] ?? '',
+            'is_active' => isset($data['is_active']) ? (int)$data['is_active'] : 0,
         ];
 
-        // Tạo hoặc load testimonial
-        $testimonial = $this->testimonialFactory->create();
+        // Tạo hoặc load customerGroupCatalog
+        $customerGroupCatalog = $this->customerGroupCatalogFactory->create();
         if ($id) {
-            $testimonial->load($id);
+            $customerGroupCatalog->load($id);
         }
 
         try {
             // Add dữ liệu và save
-            $testimonial->addData($newData);
-            $testimonial->save();
+            $customerGroupCatalog->addData($newData);
+            $customerGroupCatalog->save();
 
             // Thông báo thành công
-            $this->messageManager->addSuccessMessage(__('You saved the Testimonial.'));
+            $this->messageManager->addSuccessMessage(__('You saved the Customer Group Catalog Rule.'));
         } catch (Exception $e) {
             // Thông báo lỗi nếu có
             $this->messageManager->addErrorMessage(__($e->getMessage()));

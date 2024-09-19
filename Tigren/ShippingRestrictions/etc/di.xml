@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="shipping_restrictions_listing_data_source" xsi:type="string">shipping_restrictions_collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="shipping_restrictions_collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tigren_shipping_restrictions_rule</argument>
+            <argument name="resourceModel" xsi:type="string">Tigren\ShippingRestrictions\Model\ResourceModel\ShippingRestrictions</argument>
+        </arguments>
+    </virtualType>
+</config>

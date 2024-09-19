@@ -1,9 +1,9 @@
 <?php
 
-namespace Tigren\CustomerGroupCatalog\Model\Config;
+namespace Tigren\ShippingRestrictions\Model\Config;
 
-use Tigren\CustomerGroupCatalog\Model\CustomerGroupCatalogFactory;
-use Tigren\CustomerGroupCatalog\Model\ResourceModel\CustomerGroupCatalog\CollectionFactory;
+use Tigren\ShippingRestrictions\Model\ShippingRestrictionsFactory;
+use Tigren\ShippingRestrictions\Model\ResourceModel\ShippingRestrictions\CollectionFactory;
 use Magento\Ui\DataProvider\AbstractDataProvider;
 
 class DataProvider extends AbstractDataProvider
@@ -35,9 +35,9 @@ class DataProvider extends AbstractDataProvider
             $data = $item->getData();
 
             // Lấy dữ liệu từ bảng join, đảm bảo field tồn tại trong collection
-            $data['customer_group_name'] = $item->getData('customer_group_name');
-            $data['product_name'] = $item->getData('product_name');
-            $data['store_name'] = $item->getData('store_name');
+            //            $data['customer_group_name'] = $item->getData('customer_group_name');
+            //            $data['product_name'] = $item->getData('product_name');
+            //            $data['store_name'] = $item->getData('store_name');
 
             $this->_loadedData[$item->getId()] = $data;
         }

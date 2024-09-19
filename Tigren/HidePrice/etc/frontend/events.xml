@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/events.xsd">
+    <event name="catalog_block_product_list_collection">
+        <observer name="tigren_hideprice_observer" instance="Tigren\HidePrice\Observer\HidePriceObserver" />
+    </event>
+    <event name="catalog_block_product_view_setup_after">
+        <observer name="tigren_hideprice_product_view_observer" instance="Tigren\HidePrice\Observer\HidePriceProductViewObserver" />
+    </event>
+</config>

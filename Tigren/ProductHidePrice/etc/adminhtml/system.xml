@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="tigren" translate="label" sortOrder="10">
+            <label>Tigren Config</label>
+        </tab>
+        <section id="tigren_producthideprice" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Hide Product Price</label>
+            <tab>tigren</tab>
+            <resource>Tigren_ProductHidePrice::config_producthideprice</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Setting</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the hide price functionality.</comment>
+                </field>
+                <field id="wording_hide_price" translate="label comment" sortOrder="2" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Wording for Hidden Price</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment>Text to display when the price is hidden.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

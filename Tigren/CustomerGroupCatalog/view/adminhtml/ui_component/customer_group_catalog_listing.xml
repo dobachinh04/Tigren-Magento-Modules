@@ -56,7 +56,7 @@
         <settings>
             <updateUrl path="mui/index/render" />
             <storageConfig>
-                <param name="indexField" xsi:type="string">entity_id</param>
+                <param name="indexField" xsi:type="string">rule_id</param>
             </storageConfig>
         </settings>
         <aclResource>Tigren_CustomerGroupCatalog::listing</aclResource>
@@ -152,21 +152,14 @@
             </settings>
         </column>
 
-        <column name="is_active">
+        <column name="is_active" component="Magento_Ui/js/grid/columns/select" sortOrder="80">
             <settings>
-                <filter>text</filter>
+                <filter>select</filter>
                 <label translate="true">Is Active</label>
+                <dataType>select</dataType>
+                <options class="Tigren\CustomerGroupCatalog\Model\Config\Status" />
             </settings>
         </column>
-
-        <!--        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="80">-->
-        <!--            <settings>-->
-        <!--                <filter>select</filter>-->
-        <!--                <label translate="true">Status</label>-->
-        <!--                <dataType>select</dataType>-->
-        <!--                <options class="Tigren\CustomerGroupCatalog\Model\Config\Status" />-->
-        <!--            </settings>-->
-        <!--        </column>-->
 
         <actionsColumn name="actions" class="Tigren\CustomerGroupCatalog\Ui\Component\Listing\Grid\Column\Action">
             <settings>

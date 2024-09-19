@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="standard">
-        <route id="customer_group_catalog" frontName="customer_group_catalog">
+        <route id="discount" frontName="discount">
             <module name="Tigren_CustomerGroupCatalog"/>
         </route>
     </router>
