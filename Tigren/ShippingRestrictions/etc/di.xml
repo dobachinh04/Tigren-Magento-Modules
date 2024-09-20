@@ -7,10 +7,25 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections_form" xsi:type="array">
+                <item name="tigren_shipping_restrictions_form_data_source" xsi:type="string">shipping_restrictions_form_collection</item>
+            </argument>
+        </arguments>
+    </type>
+
     <virtualType name="shipping_restrictions_collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">tigren_shipping_restrictions_rule</argument>
             <argument name="resourceModel" xsi:type="string">Tigren\ShippingRestrictions\Model\ResourceModel\ShippingRestrictions</argument>
         </arguments>
     </virtualType>
+
+    <type name="Magento\Framework\Data\OptionSourceInterface">
+        <arguments>
+            <argument name="shipping_methods" xsi:type="string">Tigren\ShippingRestrictions\Model\Config\Source\ShippingMethods</argument>
+        </arguments>
+    </type>
 </config>

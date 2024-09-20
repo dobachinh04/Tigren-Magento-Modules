@@ -14,7 +14,7 @@ class Add extends Action
     public function execute()
     {
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $resultPage->getConfig()->getTitle()->prepend(__('Add New Shipping Restrictions Rule'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Configuration Shipping Restrictions Rules'));
         return $resultPage;
     }
 }

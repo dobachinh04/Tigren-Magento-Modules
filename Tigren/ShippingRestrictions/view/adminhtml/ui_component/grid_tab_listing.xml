@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">shipping_restrictions_listing.shipping_restrictions_listing_data_source</item>
+            <item name="deps" xsi:type="string">shipping_restrictions_listing.shipping_restrictions_listing_data_source</item>
+        </item>
+        <item name="label" translate="true" xsi:type="string">Tabs</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">grid_tab_listing</item>
+        </item>
+    </argument>
+    <settings>
+        <layout>
+            <navContainerName>left</navContainerName>
+            <type>tabs</type>
+        </layout>
+    </settings>
+    <dataSource name="grid_tab_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Tigren\ShippingRestrictions\Model\Config\Rule\DataProvider</argument>
+            <argument name="name" xsi:type="string">grid_tab_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">rule_id</argument>
+            <argument name="requestFieldName" xsi:type="string">rule_id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="tab1">
+        <settings>
+            <label translate="true">Tab 1</label>
+        </settings>
+    </fieldset>
+    <fieldset name="tab2">
+        <settings>
+            <label translate="true">Tab 2</label>
+        </settings>
+    </fieldset>
+</form>
