@@ -68,89 +68,92 @@
         </dataProvider>
     </dataSource>
 
-    <!-- columns -->
-<!--    <columns name="testimonial_columns">-->
-<!--        <selectionsColumn name="ids">-->
-<!--            <settings>-->
-<!--                <indexField>entity_id</indexField>-->
-<!--            </settings>-->
-<!--        </selectionsColumn>-->
+    <columns name="shipping_restrictions_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>rule_id</indexField>
+            </settings>
+        </selectionsColumn>
 
-<!--        &lt;!&ndash; Column id &ndash;&gt;-->
-<!--        <column name="entity_id">-->
-<!--            <settings>-->
-<!--                <filter>text</filter>-->
-<!--                <label translate="true">ID</label>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="rule_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Rule ID</label>
+                <sortable>true</sortable>
+            </settings>
+        </column>
 
-<!--        &lt;!&ndash; Column name &ndash;&gt;-->
-<!--        <column name="name">-->
-<!--            <settings>-->
-<!--                <filter>text</filter>-->
-<!--                <label translate="true">Name</label>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="name">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Rule Name</label>
+            </settings>
+        </column>
 
-<!--        &lt;!&ndash; Column email &ndash;&gt;-->
-<!--        <column name="email">-->
-<!--            <settings>-->
-<!--                <filter>text</filter>-->
-<!--                <label translate="true">Email</label>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="description">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Description</label>
+            </settings>
+        </column>
 
-<!--        <column name="message">-->
-<!--            <settings>-->
-<!--                <filter>text</filter>-->
-<!--                <label translate="true">Message</label>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="80">
+            <settings>
+                <filter>select</filter>
+                <label translate="true">Status</label>
+                <dataType>select</dataType>
+                <options class="Tigren\ShippingRestrictions\Model\Config\Status" />
+            </settings>
+        </column>
 
-<!--        <column name="company">-->
-<!--            <settings>-->
-<!--                <filter>text</filter>-->
-<!--                <label translate="true">Company</label>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="store_ids">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Store IDs</label>
+            </settings>
+        </column>
 
-<!--        <column name="rating">-->
-<!--            <settings>-->
-<!--                <filter>range</filter>-->
-<!--                <label translate="true">Rating</label>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="customer_group_ids">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Group IDs</label>
+            </settings>
+        </column>
 
-<!--        <column name="profile_image" class="Tigren\Testimonial\Ui\Component\Listing\Grid\Column\ProfileImage" component="Magento_Ui/js/grid/columns/thumbnail">-->
-<!--            <settings>-->
-<!--                <label translate="true">Profile Image</label>-->
-<!--                &lt;!&ndash;                <dataType>thumbnail</dataType>&ndash;&gt;-->
-<!--                <filter>text</filter>-->
-<!--                <bodyTmpl>ui/grid/cells/thumbnail</bodyTmpl>-->
-<!--                <sortable>true</sortable>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="discard_subsequent" component="Magento_Ui/js/grid/columns/select" sortOrder="80">
+            <settings>
+                <filter>select</filter>
+                <label translate="true">Discard Subsequent</label>
+                <dataType>select</dataType>
+                <options class="Tigren\ShippingRestrictions\Model\Config\DiscardSubsequent" />
+            </settings>
+        </column>
 
-<!--        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="80">-->
-<!--            <settings>-->
-<!--                <filter>select</filter>-->
-<!--                <label translate="true">Status</label>-->
-<!--                <dataType>select</dataType>-->
-<!--                <options class="Tigren\Testimonial\Model\Config\Status" />-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="priority">
+            <settings>
+                <filter>numberRange</filter>
+                <label translate="true">Priority</label>
+            </settings>
+        </column>
 
-<!--        <column name="created_at">-->
-<!--            <settings>-->
-<!--                <filter>dateRange</filter>-->
-<!--                <label translate="true">Created At</label>-->
-<!--            </settings>-->
-<!--        </column>-->
+        <column name="from_date">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">From Date</label>
+            </settings>
+        </column>
 
-<!--        <actionsColumn name="actions" class="Tigren\Testimonial\Ui\Component\Listing\Grid\Column\Action">-->
-<!--            <settings>-->
-<!--                <indexField>entity_id</indexField>-->
-<!--            </settings>-->
-<!--        </actionsColumn>-->
-<!--    </columns>-->
+        <column name="to_date">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">To Date</label>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Tigren\ShippingRestrictions\Ui\Component\Listing\Grid\Column\Action">
+            <settings>
+                <indexField>rule_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
 </listing>

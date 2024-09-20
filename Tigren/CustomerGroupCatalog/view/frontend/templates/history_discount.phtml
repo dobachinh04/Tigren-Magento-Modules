@@ -1,0 +1,98 @@
+<?php
+
+/** @var $block Template */
+
+/** @var $ruleHistoryViewModel RuleHistoryViewModel */
+
+use Tigren\CustomerGroupCatalog\ViewModel\RuleHistoryViewModel;
+use Magento\Framework\View\Element\Template;
+
+$ruleHistoryViewModel = $block->getData('rule_history_view_model');
+$collection = $ruleHistoryViewModel->getRuleHistory(5);
+$pagerBlock = $block->getChildBlock('blog_pager');
+
+$testimonialBlock = $block->getChildBlock('customerGroupCatalog');
+?>
+
+    <style>
+        /* Styles for data grid */
+        .data-grid {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .data-grid th, .data-grid td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .data-grid th {
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+
+        .data-grid tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .data-grid tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Styles for the back link */
+        .back-link {
+            color: gray; /* Màu xám cho liên kết */
+            text-decoration: none; /* Bỏ gạch chân */
+        }
+
+        .back-link:hover {
+            text-decoration: underline; /* Gạch chân khi hover */
+        }
+    </style>
+
+<?php if (!$collection->count()) : ?>
+    <p>There are no discount in this page</p>
+<?php else : ?>
+    <div class="actions-toolbar">
+        <div class="actions">
+            <a href="http://magento2.com/index.php/discount" class="action primary back-link">
+                <span>Back</span>
+            </a>
+        </div>
+    </div>
+
+    <table class="data-grid">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Discount</th>
+            <th>Order</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($collection as $item): ?>
+            <?php
+            // Format date to DD/MM/YYYY
+            $startTime = $item->getData('created_at');
+            $formattedCreatedAt = $startTime ? date('d/m/Y', strtotime($startTime)) : 'N/A';
+            ?>
+            <tr>
+                <td><?= htmlspecialchars($item->getData('entity_id') ?? '') ?></td>
+                <td><?= htmlspecialchars($item->getData('rule_id') ?? '') ?></td>
+                <td><?= htmlspecialchars($item->getData('order_id') ?? '') ?></td>
+                <td><?= htmlspecialchars($formattedCreatedAt ?? '') ?></td>
+            </tr>
+
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?php if ($pagerBlock) : ?>
+        <?= $ruleHistoryViewModel->getPager($collection, $pagerBlock); ?>
+    <?php endif; ?>
+<?php endif; ?>

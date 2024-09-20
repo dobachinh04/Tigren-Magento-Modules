@@ -21,9 +21,10 @@ class CustomerGroupCatalogViewModel implements ArgumentInterface
     public function __construct(
         private CustomerGroupCatalogProvider $customerGroupCatalogProvider,
         private RequestInterface $request,
-//        private UrlInterface $url,
-//        private StoreManagerInterface $storeManager
-    ) {
+        //        private UrlInterface $url,
+        //        private StoreManagerInterface $storeManager
+    )
+    {
 
     }
 
