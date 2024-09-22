@@ -42,9 +42,9 @@ class Save extends Action
             'name' => $data['name'] ?? '',
 
             // Giả sử đây là mảng, chuyển thành chuỗi phân cách bằng dấu phẩy
-            'customer_group_ids' => isset($data['customer_group_ids']) ? implode(',', $data['customer_group_ids']) : '',
-            'store_ids' => isset($data['store_ids']) ? implode(',', $data['store_ids']) : '',
-//            'product_ids' => isset($data['product_ids']) ? implode(',', $data['product_ids']) : '',
+            //            'customer_group_ids' => isset($data['customer_group_ids']) ? implode(',', $data['customer_group_ids']) : '',
+            //            'store_ids' => isset($data['store_ids']) ? implode(',', $data['store_ids']) : '',
+            //            'product_ids' => isset($data['product_ids']) ? implode(',', $data['product_ids']) : '',
 
             'discount_amount' => $data['discount_amount'] ?? '',
             'start_time' => $data['start_time'] ?? '',
