@@ -12,7 +12,7 @@
         </deps>
         <buttons>
             <button name="add">
-                <url path="shipping_restrictions/rule/gridtab" />
+                <url path="shipping_restrictions/rule/add" />
                 <class>primary</class>
                 <label translate="true">Add new</label>
             </button>

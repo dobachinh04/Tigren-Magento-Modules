@@ -7,6 +7,11 @@
             </argument>
         </arguments>
     </type>
+
+<!--    <type name="Magento\Catalog\Model\Product">-->
+<!--        <plugin name="change_product" type="Tigren\CustomerGroupCatalog\Plugin\Product" sortOrder="1" disabled="false" />-->
+<!--    </type>-->
+
     <virtualType name="customer_group_catalog_rule_collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">tigren_customer_group_catalog_rule</argument>

@@ -4,18 +4,10 @@
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="shipping_restrictions_listing_data_source" xsi:type="string">shipping_restrictions_collection</item>
-                <item name="shipping_restrictions_config_data_source" xsi:type="string">shipping_restrictions_config_collection</item>
+                <item name="shipping_restrictions_form_data_source" xsi:type="string">shipping_restrictions_form_collection</item>
             </argument>
         </arguments>
     </type>
-
-    <!--    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">-->
-    <!--        <arguments>-->
-    <!--            <argument name="collections_form" xsi:type="array">-->
-    <!--                <item name="tigren_shipping_restrictions_form_data_source" xsi:type="string">shipping_restrictions_form_collection</item>-->
-    <!--            </argument>-->
-    <!--        </arguments>-->
-    <!--    </type>-->
 
     <virtualType name="shipping_restrictions_collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
