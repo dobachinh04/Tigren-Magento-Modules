@@ -2,6 +2,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="checkout_cart_product_add_after">
-        <observer name="apply_customer_group_discount" instance="Tigren\CustomerGroupCatalog\Observer\ApplyDiscount" />
+        <observer name="apply_customer_group_discount" instance="Tigren\CustomerGroupCatalog\Observer\ApplyDiscountInCart" />
     </event>
 </config>

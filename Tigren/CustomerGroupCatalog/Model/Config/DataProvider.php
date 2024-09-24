@@ -30,7 +30,6 @@ class DataProvider extends AbstractDataProvider
         }
 
         $items = $this->collection->getItems();
-
         foreach ($items as $item) {
             $data = $item->getData();
 
