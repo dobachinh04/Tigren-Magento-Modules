@@ -25,15 +25,15 @@ class ApplyDiscountInView
     public function afterGetPrice(\Magento\Catalog\Model\Product $subject, $result)
     {
         // Log thông tin để xác nhận plugin đã được kích hoạt
-        $this->logger->info('Plugin Tigren_CustomerGroupCatalog::afterGetPrice activated.');
+        //        $this->logger->info('Plugin Tigren_CustomerGroupCatalog::afterGetPrice activated.');
 
         // Lấy thông tin nhóm khách hàng và ID sản phẩm
         $customerGroupId = $this->getCustomerGroupId();
         $productId = $subject->getId();
 
         // Log thông tin sản phẩm và nhóm khách hàng
-        $this->logger->info(sprintf('Processing product ID: %d for customer group ID: %d', $productId,
-            $customerGroupId));
+        //        $this->logger->info(sprintf('Processing product ID: %d for customer group ID: %d', $productId,
+        //            $customerGroupId));
 
         // Lấy collection của Rule
         $ruleCollection = $this->ruleCollectionFactory->create();
@@ -52,7 +52,7 @@ class ApplyDiscountInView
         // Kiểm tra nếu có rule giảm giá
         $rule = $ruleCollection->getFirstItem();
         if ($rule->getId()) {
-            $this->logger->info('Discount rule found.');
+            //            $this->logger->info('Discount rule found.');
 
             // Tính toán giá sau khi giảm
             $discountAmount = $rule->getDiscountAmount();
@@ -60,16 +60,16 @@ class ApplyDiscountInView
             $finalPrice = $result - $discountValue;
 
             // Log giá sau khi giảm
-            $this->logger->info(sprintf(
-                'Applying discount: original price: %.2f, discount: %.2f, final price: %.2f',
-                $result, $discountValue, $finalPrice
-            ));
+            //            $this->logger->info(sprintf(
+            //                'Applying discount: original price: %.2f, discount: %.2f, final price: %.2f',
+            //                $result, $discountValue, $finalPrice
+            //            ));
 
             return $finalPrice;
         }
 
         // Trả về giá gốc nếu không có rule giảm giá
-        $this->logger->info('No discount rule found. Returning original price: ' . $result);
+        //        $this->logger->info('No discount rule found. Returning original price: ' . $result);
         return $result;
     }
 
@@ -77,7 +77,7 @@ class ApplyDiscountInView
     {
         // Lấy thông tin nhóm khách hàng từ session
         $customerGroupId = $this->customerSession->getCustomer()->getGroupId();
-        $this->logger->info('Customer group ID: ' . $customerGroupId);
+        //        $this->logger->info('Customer group ID: ' . $customerGroupId);
 
         return $customerGroupId;
     }

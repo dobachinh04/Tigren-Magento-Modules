@@ -8,7 +8,6 @@
 -->
 
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-
     <!-- Table for Customer Group Catalog Rules -->
     <table name="tigren_customer_group_catalog_rule" resource="default" engine="innodb" comment="Customer Group Catalog Rules Table">
         <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Rule ID" />
@@ -44,5 +43,4 @@
 
         <constraint xsi:type="foreign" referenceId="FK_CUSTOMER_GROUP_CATALOG_RULE_HISTORY_RULE_ID" table="tigren_customer_group_catalog_rule_history" column="rule_id" referenceTable="tigren_customer_group_catalog_rule" referenceColumn="rule_id" onDelete="CASCADE" />
     </table>
-
 </schema>

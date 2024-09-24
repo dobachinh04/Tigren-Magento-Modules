@@ -4,4 +4,8 @@
     <event name="checkout_cart_product_add_after">
         <observer name="apply_customer_group_discount" instance="Tigren\CustomerGroupCatalog\Observer\ApplyDiscountInCart" />
     </event>
+
+    <!--    <event name="sales_order_place_after">-->
+    <!--        <observer name="customer_group_catalog_rule_history_observer" instance="Tigren\CustomerGroupCatalog\Observer\SaveRuleHistory" />-->
+    <!--    </event>-->
 </config>
