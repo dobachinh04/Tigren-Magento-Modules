@@ -1,10 +1,16 @@
 <?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
-namespace Tigren\HidePrice\Observer;
+namespace Tigren\DisableModule\HidePrice\Observer;
 
+use Magento\Customer\Model\Session;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Magento\Customer\Model\Session;
 use Psr\Log\LoggerInterface;
 
 class HidePriceObserver implements ObserverInterface

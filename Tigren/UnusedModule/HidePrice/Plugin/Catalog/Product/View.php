@@ -1,6 +1,12 @@
 <?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
-namespace Tigren\HidePrice\Plugin\Catalog\Product;
+namespace Tigren\DisableModule\HidePrice\Plugin\Catalog\Product;
 
 use Magento\Customer\Model\Session;
 use Psr\Log\LoggerInterface;

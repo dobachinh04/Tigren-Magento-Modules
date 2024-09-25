@@ -1,8 +1,15 @@
 <?php
-namespace Tigren\ProductHidePrice\Pricing\Render;
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
+
+namespace Tigren\DisableModule\ProductHidePrice\Pricing\Render;
 
 use Magento\Catalog\Pricing\Render\FinalPriceBox as BaseFinalPriceBox;
-use Tigren\ProductHidePrice\Helper\Data as Helper;
+use Tigren\DisableModule\ProductHidePrice\Helper\Data as Helper;
 
 class FinalPriceBox extends BaseFinalPriceBox
 {

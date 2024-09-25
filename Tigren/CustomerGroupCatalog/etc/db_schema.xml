@@ -37,10 +37,25 @@
             <column name="entity_id" />
         </constraint>
 
-        <constraint xsi:type="foreign" referenceId="FK_CUSTOMER_GROUP_CATALOG_RULE_HISTORY_ORDER_ID" table="tigren_customer_group_catalog_rule_history" column="order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="FK_CUSTOMER_GROUP_CATALOG_RULE_HISTORY_ORDER_ID"
+                    table="tigren_customer_group_catalog_rule_history"
+                    column="order_id"
+                    referenceTable="sales_order"
+                    referenceColumn="entity_id"
+                    onDelete="CASCADE" />
 
-        <constraint xsi:type="foreign" referenceId="FK_CUSTOMER_GROUP_CATALOG_RULE_HISTORY_CUSTOMER_ID" table="tigren_customer_group_catalog_rule_history" column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="FK_CUSTOMER_GROUP_CATALOG_RULE_HISTORY_CUSTOMER_ID"
+                    table="tigren_customer_group_catalog_rule_history"
+                    column="customer_id"
+                    referenceTable="customer_entity"
+                    referenceColumn="entity_id"
+                    onDelete="CASCADE" />
 
-        <constraint xsi:type="foreign" referenceId="FK_CUSTOMER_GROUP_CATALOG_RULE_HISTORY_RULE_ID" table="tigren_customer_group_catalog_rule_history" column="rule_id" referenceTable="tigren_customer_group_catalog_rule" referenceColumn="rule_id" onDelete="CASCADE" />
+        <constraint xsi:type="foreign" referenceId="FK_CUSTOMER_GROUP_CATALOG_RULE_HISTORY_RULE_ID"
+                    table="tigren_customer_group_catalog_rule_history"
+                    column="rule_id"
+                    referenceTable="tigren_customer_group_catalog_rule"
+                    referenceColumn="rule_id"
+                    onDelete="CASCADE" />
     </table>
 </schema>
