@@ -1,0 +1,16 @@
+type Mutation {
+    createBlogCategory(input: BlogCategoryInput!): BlogCategoryOutput @resolver(class: "\\Tigren\\SimpleBlog\\Model\\Resolver\\CreateBlogCategory")
+}
+
+input BlogCategoryInput {
+    name: String!
+    description: String!
+    status: Int!
+}
+
+type BlogCategoryOutput {
+    category_id: Int!
+    name: String!
+    description: String!
+    status: Int!
+}

@@ -30,4 +30,6 @@
             <argument name="resourceModel" xsi:type="string">Tigren\SimpleBlog\Model\ResourceModel\Post</argument>
         </arguments>
     </virtualType>
+
+    <!--    <preference for="Tigren\SimpleBlog\Model\CategoryFactory" type="Tigren\SimpleBlog\Model\CategoryFactory" />-->
 </config>
