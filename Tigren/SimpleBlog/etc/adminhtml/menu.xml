@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Menu/etc/menu.xsd">
+    <menu>
+        <!-- Thêm tiêu đề cho nhóm menu -->
+        <add id="Tigren_SimpleBlog::blog_menu_group"
+             title="Simple Blog Management"
+             module="Tigren_SimpleBlog"
+             sortOrder="2"
+             parent="Tigren::first_level"
+             resource="Magento_Backend::content" />
+
+        <!-- Các mục menu bên dưới tiêu đề -->
+        <add id="Tigren_SimpleBlog::blog_category"
+             title="Simple Blog Category"
+             module="Tigren_SimpleBlog"
+             sortOrder="3"
+             action="simple_blog/category/index"
+             parent="Tigren_SimpleBlog::blog_menu_group"
+             resource="Magento_Backend::content" />
+
+        <add id="Tigren_SimpleBlog::blog_post"
+             title="Simple Blog Post"
+             module="Tigren_SimpleBlog"
+             sortOrder="4"
+             action="simple_blog/post/index"
+             parent="Tigren_SimpleBlog::blog_menu_group"
+             resource="Magento_Backend::content" />
+    </menu>
+</config>

@@ -1,11 +1,17 @@
 <?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
-namespace Tigren\Testimonial\Ui\Component\Listing\Grid\Column;
+namespace Tigren\SimpleBlog\Ui\Component\Listing\Grid\Column;
 
 use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
 
-class Action extends Column
+class ActionCategory extends Column
 {
     /** @var UrlInterface */
     protected $urlBuilder;
@@ -45,14 +51,14 @@ class Action extends Column
                     $item[$this->getData('name')] = [
                         'edit' => [
                             'href' => $this->urlBuilder->getUrl(
-                                'testimonial/question/edit',
+                                'simple_blog/category/edit',
                                 ['id' => $item['entity_id']]
                             ),
                             'label' => __('Edit')
                         ],
                         'delete' => [
                             'href' => $this->urlBuilder->getUrl(
-                                'testimonial/question/delete',
+                                'simple_blog/category/delete',
                                 ['id' => $item['entity_id']]
                             ),
                             'label' => __('Delete'),
