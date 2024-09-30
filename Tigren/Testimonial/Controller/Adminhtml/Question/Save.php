@@ -7,6 +7,8 @@ use Tigren\Testimonial\Model\TestimonialFactory;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultFactory;
+use Magento\Framework\Filesystem;
+use Magento\Framework\App\Filesystem\DirectoryList;
 
 /**
  * Class Save
@@ -17,45 +19,65 @@ class Save extends Action
     /**
      * @var TestimonialFactory
      */
-    private $testimonialFactory;
+    private TestimonialFactory $testimonialFactory;
+
+    /**
+     * @var Filesystem
+     */
+    private Filesystem $filesystem;
 
     /**
      * Save constructor.
      * @param Context $context
      * @param TestimonialFactory $testimonialFactory
+     * @param Filesystem $filesystem
      */
     public function __construct(
         Context $context,
-        TestimonialFactory $testimonialFactory
+        TestimonialFactory $testimonialFactory,
+        Filesystem $filesystem
     ) {
         parent::__construct($context);
         $this->testimonialFactory = $testimonialFactory;
+        $this->filesystem = $filesystem;
     }
 
     public function execute()
     {
         $data = $this->getRequest()->getPostValue();
-
-        //                var_dump($data);
-        //                dd();
-        if (!empty($data['profile_image'][0]['name']) && isset($data['profile_image'][0]['tmp_name'])) {
-            $data['profile_image'] = $data['profile_image'][0]['name'];
-        } else {
-            unset($data['profile_image']);
-        }
-        //        $data['update_time'] = null;
-
         $id = !empty($data['entity_id']) ? $data['entity_id'] : null;
-        $image = !empty($data['profile_image']) ? $data['profile_image'] : null;
 
-        // Chuẩn bị dữ liệu
+        // Khai báo biến để giữ ảnh cũ
+        $oldImage = null;
+
+        // Nếu có ID, tải testimonial cũ để lấy ảnh cũ
+        if ($id) {
+            $testimonial = $this->testimonialFactory->create()->load($id);
+            $oldImage = $testimonial->getProfileImage(); // Lưu lại ảnh cũ
+        }
+
+        // Kiểm tra xem có hình ảnh mới được tải lên hay không
+        if (!empty($data['profile_image'][0]['name']) && isset($data['profile_image'][0]['tmp_name'])) {
+            // Nếu có ảnh mới, giữ lại tên ảnh mới
+            $data['profile_image'] = $data['profile_image'][0]['name'];
+
+            // Xóa ảnh cũ nếu có
+            if ($oldImage) {
+                $this->deleteOldImage($oldImage);
+            }
+        } else {
+            // Nếu không có hình ảnh mới, giữ lại ảnh cũ
+            $data['profile_image'] = $oldImage;
+        }
+
+        // Chuẩn bị dữ liệu để lưu
         $newData = [
             'name' => $data['name'] ?? '',
             'email' => $data['email'] ?? '',
             'company' => $data['company'] ?? '',
             'rating' => $data['rating'] ?? '',
             'created_at' => $data['created_at'] ?? '',
-            'profile_image' => $image ?? '',
+            'profile_image' => $data['profile_image'] ?? '',
             'status' => isset($data['status']) ? (int)$data['status'] : 0,
             'message' => $data['message'] ?? '',
         ];
@@ -67,7 +89,7 @@ class Save extends Action
         }
 
         try {
-            // Add dữ liệu và save
+            // Thêm dữ liệu và lưu
             $testimonial->addData($newData);
             $testimonial->save();
 
@@ -80,5 +102,22 @@ class Save extends Action
 
         // Redirect về trang index
         return $this->resultRedirectFactory->create()->setPath('*/*/index');
+    }
+
+    /**
+     * Xóa ảnh cũ
+     *
+     * @param string $oldImage
+     */
+    private function deleteOldImage($oldImage)
+    {
+        // Đường dẫn đến thư mục chứa ảnh
+        $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
+        $imagePath = $mediaDirectory->getAbsolutePath('tmp/imageUploader/images/') . $oldImage;
+
+        // Kiểm tra xem file có tồn tại không
+        if (file_exists($imagePath)) {
+            unlink($imagePath); // Xóa file
+        }
     }
 }
