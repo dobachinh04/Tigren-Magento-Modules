@@ -1,4 +1,10 @@
 <?php declare(strict_types=1);
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Controller\Adminhtml\Question;
 
@@ -15,10 +21,23 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\Filesystem;
 
+/**
+ *
+ */
 class ImageTempUpload extends Action implements HttpPostActionInterface
 {
+    /**
+     * @var WriteInterface
+     */
     private WriteInterface $mediaDirectory;
 
+    /**
+     * @param Context $context
+     * @param Filesystem $filesystem
+     * @param UploaderFactory $uploaderFactory
+     * @param StoreManagerInterface $storeManager
+     * @throws \Magento\Framework\Exception\FileSystemException
+     */
     public function __construct(
         Context $context,
         Filesystem $filesystem,
@@ -29,6 +48,9 @@ class ImageTempUpload extends Action implements HttpPostActionInterface
         $this->mediaDirectory = $filesystem->getDirectoryWrite(DirectoryList::MEDIA);
     }
 
+    /**
+     * @return ResultInterface
+     */
     public function execute(): ResultInterface
     {
         $jsonResult = $this->resultFactory->create(ResultFactory::TYPE_JSON);

@@ -1,5 +1,4 @@
 <?php
-
 namespace Tigren\Testimonial\Model\Config;
 
 use Tigren\Testimonial\Model\ResourceModel\Testimonial\CollectionFactory;
@@ -7,6 +6,7 @@ use Magento\Ui\DataProvider\AbstractDataProvider;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 
 class DataProvider extends AbstractDataProvider
 {
@@ -14,20 +14,34 @@ class DataProvider extends AbstractDataProvider
     protected $collection;
     protected UrlInterface $urlBuilder;
     private $mediaDirectory;
+    private $customerFactory;
 
+    /**
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
+     * @param CollectionFactory $collectionFactory
+     * @param CustomerCollectionFactory $customerCollectionFactory
+     * @param UrlInterface $urlBuilder
+     * @param Filesystem $filesystem
+     * @param array $meta
+     * @param array $data
+     */
     public function __construct(
-        $name,
-        $primaryFieldName,
-        $requestFieldName,
+        string $name, // Thay đổi kiểu thành string
+        string $primaryFieldName, // Thay đổi kiểu thành string
+        string $requestFieldName, // Thay đổi kiểu thành string
         CollectionFactory $collectionFactory,
-        UrlInterface $urlBuilder, // Inject URL Builder
-        Filesystem $filesystem,   // Inject Filesystem
+        CustomerCollectionFactory $customerCollectionFactory,
+        UrlInterface $urlBuilder,
+        Filesystem $filesystem,
         array $meta = [],
         array $data = []
     ) {
         $this->collection = $collectionFactory->create();
-        $this->urlBuilder = $urlBuilder; // Assign URL Builder
-        $this->mediaDirectory = $filesystem->getDirectoryRead(DirectoryList::MEDIA); // Initialize media directory
+        $this->customerFactory = $customerCollectionFactory;
+        $this->urlBuilder = $urlBuilder;
+        $this->mediaDirectory = $filesystem->getDirectoryRead(DirectoryList::MEDIA);
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
     }
 
@@ -55,8 +69,8 @@ class DataProvider extends AbstractDataProvider
                     [
                         'name' => $data['profile_image'],
                         'url' => $imageUrl,
-                        'size' => file_exists($imagePath) ? filesize($imagePath) : 0, // Lấy kích thước file
-                        'type' => file_exists($imagePath) ? mime_content_type($imagePath) : 'image/jpeg', // Lấy mime type của file
+                        'size' => file_exists($imagePath) ? filesize($imagePath) : 0,
+                        'type' => file_exists($imagePath) ? mime_content_type($imagePath) : 'image/jpeg',
                     ]
                 ];
             }
@@ -65,5 +79,20 @@ class DataProvider extends AbstractDataProvider
         }
 
         return $this->_loadedData;
+    }
+
+    public function getCustomerOptions()
+    {
+        $customerCollection = $this->customerFactory->create()->getCollection();
+        $options = [];
+
+        foreach ($customerCollection as $customer) {
+            $options[] = [
+                'value' => $customer->getId(),
+                'label' => $customer->getName() // Hoặc có thể dùng getEmail() hoặc getFirstname() + ' ' + getLastname()
+            ];
+        }
+
+        return $options;
     }
 }

@@ -5,12 +5,12 @@ use Magento\Framework\View\Element\Template; ?>
 <style>
     .form-container {
         max-width: 800px;
-        margin: 0 auto;
         padding: 20px;
         background-color: #ffffff;
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 20px auto 0;
     }
 
     .form-container h1 {
@@ -62,6 +62,14 @@ use Magento\Framework\View\Element\Template; ?>
     }
 
 </style>
+
+<div class="actions-toolbar">
+    <div class="actions">
+        <a href="http://magento2.com/index.php/testimonial" class="action primary back-link">
+            <span>Back</span>
+        </a>
+    </div>
+</div>
 
 <div class="form-container">
     <form action="<?= $block->getUrl('testimonial/index/save') ?>" method="post" enctype="multipart/form-data">

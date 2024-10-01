@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Controller\Adminhtml\Question;
 
@@ -9,12 +15,30 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\App\Filesystem\DirectoryList;
 
+/**
+ *
+ */
 class Delete extends Action
 {
+    /**
+     * @var RedirectFactory
+     */
     protected $resultRedirectFactory;
+    /**
+     * @var TestimonialFactory
+     */
     protected $testimonialFactory;
+    /**
+     * @var Filesystem
+     */
     protected $filesystem;
 
+    /**
+     * @param Action\Context $context
+     * @param RedirectFactory $resultRedirectFactory
+     * @param TestimonialFactory $testimonialFactory
+     * @param Filesystem $filesystem
+     */
     public function __construct(
         Action\Context $context,
         RedirectFactory $resultRedirectFactory,
@@ -28,6 +52,9 @@ class Delete extends Action
         $this->filesystem = $filesystem; // Initialize Filesystem
     }
 
+    /**
+     * @return \Magento\Backend\Model\View\Result\Redirect|\Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         $resultRedirect = $this->resultRedirectFactory->create();

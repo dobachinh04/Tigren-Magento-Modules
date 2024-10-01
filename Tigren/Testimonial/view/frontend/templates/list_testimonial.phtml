@@ -34,6 +34,7 @@ $testimonialBlock = $block->getChildBlock('testimonial');
         background-color: #fff;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
+        margin-top: 20px;
     }
 
     .testimonial-image {
@@ -64,6 +65,14 @@ $testimonialBlock = $block->getChildBlock('testimonial');
     <p>There is no Testimonials in this Page</p>
 <?php else : ?>
     <!--    --><?php //foreach ($collection as $testimonial) : ?>
+
+    <div class="actions-toolbar">
+        <div class="actions">
+            <a href="./testimonial/index/add" class="action primary">
+                <span>Add New Testimonial</span>
+            </a>
+        </div>
+    </div>
 
     <div class="testimonial-grid">
         <?php foreach ($collection as $item): ?>

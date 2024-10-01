@@ -10,4 +10,14 @@ class Testimonial extends AbstractModel
     {
         $this->_init(\Tigren\Testimonial\Model\ResourceModel\Testimonial::class);
     }
+
+    public function getCustomerId()
+    {
+        return $this->getData('customer_id');
+    }
+
+    public function setCustomerId($customerId)
+    {
+        return $this->setData('customer_id', $customerId);
+    }
 }

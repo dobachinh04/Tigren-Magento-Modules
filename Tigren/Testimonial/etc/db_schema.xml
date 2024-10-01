@@ -3,6 +3,7 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="tigren_testimonial" resource="default" engine="innodb" comment="List of testimonials">
         <column xsi:type="int" name="entity_id" identity="true" nullable="false" comment="Entity ID" />
+        <column xsi:type="int" name="customer_id" nullable="true" comment="Customer ID" />
         <column xsi:type="varchar" name="name" length="255" nullable="false" comment="Name" />
         <column xsi:type="varchar" name="email" length="255" nullable="false" comment="Email" />
         <column xsi:type="varchar" name="message" length="255" nullable="false" comment="Message" />

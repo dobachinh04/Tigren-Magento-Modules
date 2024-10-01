@@ -11,12 +11,12 @@
             </block>
 
             <!-- Block cho menu Add Testimonial -->
-            <block class="Tigren\Testimonial\Block\CustomLink" name="add-testimonial-link">
-                <arguments>
-                    <argument name="label" xsi:type="string">Add Testimonial</argument>
-                    <argument name="path" xsi:type="string">http://magento2.com/index.php/testimonial/index/add</argument>
-                </arguments>
-            </block>
+            <!--            <block class="Tigren\Testimonial\Block\CustomLink" name="add-testimonial-link">-->
+            <!--                <arguments>-->
+            <!--                    <argument name="label" xsi:type="string">Add Testimonial</argument>-->
+            <!--                    <argument name="path" xsi:type="string">http://magento2.com/index.php/testimonial/index/add</argument>-->
+            <!--                </arguments>-->
+            <!--            </block>-->
         </referenceBlock>
     </body>
 </page>
