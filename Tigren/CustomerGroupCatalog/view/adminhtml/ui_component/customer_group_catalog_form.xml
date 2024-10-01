@@ -227,65 +227,110 @@
                 <dataScope>end_time</dataScope>
             </settings>
         </field>
+
+        <field name="store_ids" formElement="multiselect">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Stores</label>
+                <dataScope>store_ids</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Tigren\CustomerGroupCatalog\Model\Config\StoreOptionsProvider" />
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <field name="customer_group_ids" formElement="multiselect">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Customer Groups</label>
+                <dataScope>customer_group_ids</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Tigren\CustomerGroupCatalog\Model\Config\CustomerGroupOptionsProvider" />
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <field name="product_ids" formElement="multiselect">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Products</label>
+                <dataScope>product_ids</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Tigren\CustomerGroupCatalog\Model\Config\ProductOptionsProvider" />
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
     </fieldset>
 
-    <fieldset name="product_ids">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">Products Select</item>
-                <item name="collapsible" xsi:type="boolean">true</item>
-                <item name="sortOrder" xsi:type="number">30</item>
-            </item>
-        </argument>
-        <container name="assign_products_container">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="sortOrder" xsi:type="number">170</item>
-                </item>
-            </argument>
-            <htmlContent name="html_content">
-                <argument name="block" xsi:type="object">Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignProducts</argument>
-            </htmlContent>
-        </container>
-    </fieldset>
+    <!--    <fieldset name="store_ids">-->
+    <!--        <argument name="data" xsi:type="array">-->
+    <!--            <item name="config" xsi:type="array">-->
+    <!--                <item name="label" xsi:type="string" translate="true">Stores Select</item>-->
+    <!--                <item name="collapsible" xsi:type="boolean">true</item>-->
+    <!--                <item name="sortOrder" xsi:type="number">30</item>-->
+    <!--            </item>-->
+    <!--        </argument>-->
+    <!--        <container name="assign_products_container">-->
+    <!--            <argument name="data" xsi:type="array">-->
+    <!--                <item name="config" xsi:type="array">-->
+    <!--                    <item name="sortOrder" xsi:type="number">170</item>-->
+    <!--                </item>-->
+    <!--            </argument>-->
+    <!--            <htmlContent name="html_content">-->
+    <!--                <argument name="block" xsi:type="object">Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignStore</argument>-->
+    <!--            </htmlContent>-->
+    <!--        </container>-->
+    <!--    </fieldset>-->
 
-    <fieldset name="customer_group_ids">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">Customer Group Select</item>
-                <item name="collapsible" xsi:type="boolean">true</item>
-                <item name="sortOrder" xsi:type="number">30</item>
-            </item>
-        </argument>
-        <container name="assign_products_container">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="sortOrder" xsi:type="number">170</item>
-                </item>
-            </argument>
-            <htmlContent name="html_content">
-                <argument name="block" xsi:type="object">Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignCustomerGroup</argument>
-            </htmlContent>
-        </container>
-    </fieldset>
+    <!--    <fieldset name="customer_group_ids">-->
+    <!--        <argument name="data" xsi:type="array">-->
+    <!--            <item name="config" xsi:type="array">-->
+    <!--                <item name="label" xsi:type="string" translate="true">Customer Group Select</item>-->
+    <!--                <item name="collapsible" xsi:type="boolean">true</item>-->
+    <!--                <item name="sortOrder" xsi:type="number">30</item>-->
+    <!--            </item>-->
+    <!--        </argument>-->
+    <!--        <container name="assign_products_container">-->
+    <!--            <argument name="data" xsi:type="array">-->
+    <!--                <item name="config" xsi:type="array">-->
+    <!--                    <item name="sortOrder" xsi:type="number">170</item>-->
+    <!--                </item>-->
+    <!--            </argument>-->
+    <!--            <htmlContent name="html_content">-->
+    <!--                <argument name="block" xsi:type="object">Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignCustomerGroup</argument>-->
+    <!--            </htmlContent>-->
+    <!--        </container>-->
+    <!--    </fieldset>-->
 
-    <fieldset name="store_ids">
-        <argument name="data" xsi:type="array">
-            <item name="config" xsi:type="array">
-                <item name="label" xsi:type="string" translate="true">Stores Select</item>
-                <item name="collapsible" xsi:type="boolean">true</item>
-                <item name="sortOrder" xsi:type="number">30</item>
-            </item>
-        </argument>
-        <container name="assign_products_container">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="sortOrder" xsi:type="number">170</item>
-                </item>
-            </argument>
-            <htmlContent name="html_content">
-                <argument name="block" xsi:type="object">Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignStore</argument>
-            </htmlContent>
-        </container>
-    </fieldset>
+    <!--    <fieldset name="product_ids">-->
+    <!--        <argument name="data" xsi:type="array">-->
+    <!--            <item name="config" xsi:type="array">-->
+    <!--                <item name="label" xsi:type="string" translate="true">Products Select</item>-->
+    <!--                <item name="collapsible" xsi:type="boolean">true</item>-->
+    <!--                <item name="sortOrder" xsi:type="number">30</item>-->
+    <!--            </item>-->
+    <!--        </argument>-->
+    <!--        <container name="assign_products_container">-->
+    <!--            <argument name="data" xsi:type="array">-->
+    <!--                <item name="config" xsi:type="array">-->
+    <!--                    <item name="sortOrder" xsi:type="number">170</item>-->
+    <!--                </item>-->
+    <!--            </argument>-->
+    <!--            <htmlContent name="html_content">-->
+    <!--                <argument name="block" xsi:type="object">Tigren\CustomerGroupCatalog\Block\Adminhtml\AssignProducts</argument>-->
+    <!--            </htmlContent>-->
+    <!--        </container>-->
+    <!--    </fieldset>-->
 </form>

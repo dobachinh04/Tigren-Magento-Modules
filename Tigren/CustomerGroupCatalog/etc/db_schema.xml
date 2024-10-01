@@ -12,9 +12,9 @@
     <table name="tigren_customer_group_catalog_rule" resource="default" engine="innodb" comment="Customer Group Catalog Rules Table">
         <column xsi:type="int" name="rule_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Rule ID" />
         <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Rule Name" />
-        <column xsi:type="varchar" name="customer_group_ids" nullable="false" length="255" comment="Customer Group IDs" />
-        <column xsi:type="varchar" name="store_ids" nullable="false" length="255" comment="Store IDs" />
-        <column xsi:type="text" name="product_ids" nullable="false" comment="Product IDs" />
+        <column xsi:type="int" name="customer_group_ids" nullable="false" comment="Customer Group IDs" />
+        <column xsi:type="int" name="store_ids" nullable="false" comment="Store IDs" />
+        <column xsi:type="int" name="product_ids" nullable="false" comment="Product IDs" />
         <column xsi:type="decimal" name="discount_amount" nullable="false" precision="12" scale="4" comment="Discount Amount (Percent)" />
         <column xsi:type="timestamp" name="start_time" nullable="false" comment="Start Time" />
         <column xsi:type="timestamp" name="end_time" nullable="false" comment="End Time" />
