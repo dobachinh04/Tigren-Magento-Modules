@@ -75,6 +75,9 @@ use Magento\Framework\View\Element\Template; ?>
     <form action="<?= $block->getUrl('testimonial/index/save') ?>" method="post" enctype="multipart/form-data">
         <?= $block->getBlockHtml('formkey') ?>
 
+        <!-- Input hidden để lấy ID khách hàng đang đăng nhập -->
+        <input type="hidden" name="customer_id" value="<?= $block->escapeHtml($block->getCustomerId()) ?>">
+
         <div>
             <label for="name">Name</label>
             <input type="text" name="name" id="name" required>

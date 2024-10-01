@@ -216,20 +216,39 @@
             </settings>
         </field>
 
-<!--        <field name="customer_id" formElement="select">-->
-<!--            <settings>-->
-<!--                <dataType>text</dataType>-->
-<!--                <label translate="true">Customer</label>-->
-<!--                <dataScope>customer_id</dataScope>-->
-<!--            </settings>-->
-<!--            <formElements>-->
-<!--                <select>-->
-<!--                    <settings>-->
-<!--                        <options class="Tigren\Testimonial\Model\Config\DataProvider" method="getCustomerOptions"/>-->
-<!--                    </settings>-->
-<!--                </select>-->
-<!--            </formElements>-->
-<!--        </field>-->
+        <field name="customer_id" formElement="select">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Customer</label>
+                <dataScope>customer_id</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <!--                        <options class="Vendor\Module\Model\Source\CustomerOptionsProvider" />-->
+                        <options class="Tigren\Testimonial\Model\Customer\Options" />
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <!--        <field name="customer_id" formElement="select">-->
+        <!--            <settings>-->
+        <!--                <label translate="true">Customer</label>-->
+        <!--                <dataType>int</dataType>-->
+        <!--                <formElement>select</formElement>-->
+        <!--                <options>-->
+        <!--                    <option name="0" xsi:type="option" translate="true">&#45;&#45; Please Select &#45;&#45;</option>-->
+        <!--                </options>-->
+        <!--            </settings>-->
+        <!--            <formElements>-->
+        <!--                <select>-->
+        <!--                    <settings>-->
+        <!--                        <options class="Tigren\Testimonial\Model\Customer\Options" />-->
+        <!--                    </settings>-->
+        <!--                </select>-->
+        <!--            </formElements>-->
+        <!--        </field>-->
 
         <!--        profile_image-->
         <field name="profile_image" formElement="imageUploader">

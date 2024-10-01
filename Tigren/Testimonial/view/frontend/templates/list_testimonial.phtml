@@ -81,7 +81,8 @@ $testimonialBlock = $block->getChildBlock('testimonial');
                      class="testimonial-image" />
                 <h3 class="testimonial-name"><?= htmlspecialchars($item->getData('name')) ?></h3>
                 <p class="testimonial-message"><?= htmlspecialchars($item->getData('message')) ?></p>
-                <p class="testimonial-message"><?= htmlspecialchars($item->getData('rating')) ?> Sao</p>
+                <p class="testimonial-message"><?= htmlspecialchars($item->getData('rating')) ?> <i
+                            class="fa-solid fa-star" style="color: #FFD43B;"></i></p>
                 <p class="testimonial-date">Tạo Ngày: <?= date('d/m/Y', strtotime($item->getData('created_at'))) ?></p>
             </div>
         <?php endforeach; ?>
@@ -93,3 +94,7 @@ $testimonialBlock = $block->getChildBlock('testimonial');
         <?= $testimonialViewModel->getPager($collection, $pagerBlock); ?>
     <?php endif; ?>
 <?php endif; ?>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />

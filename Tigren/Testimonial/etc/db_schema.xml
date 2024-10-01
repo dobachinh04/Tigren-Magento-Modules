@@ -1,17 +1,23 @@
 <?xml version="1.0"?>
-
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="tigren_testimonial" resource="default" engine="innodb" comment="List of testimonials">
         <column xsi:type="int" name="entity_id" identity="true" nullable="false" comment="Entity ID" />
-        <column xsi:type="int" name="customer_id" nullable="true" comment="Customer ID" />
+        <column xsi:type="int" name="customer_id" nullable="false" comment="Customer ID" unsigned="true" />
         <column xsi:type="varchar" name="name" length="255" nullable="false" comment="Name" />
         <column xsi:type="varchar" name="email" length="255" nullable="false" comment="Email" />
         <column xsi:type="varchar" name="message" length="255" nullable="false" comment="Message" />
         <column xsi:type="varchar" name="company" length="255" nullable="false" comment="Company" />
-        <column xsi:type="decimal" name="rating" precision="5" scale="2" nullable="false" comment="Rating" />
+        <column xsi:type="decimal" name="rating" precision="5" scale="1" nullable="false" comment="Rating" />
         <column xsi:type="varchar" name="profile_image" length="255" nullable="true" comment="Profile Image" />
         <column xsi:type="smallint" name="status" nullable="false" default="1" comment="Status" />
         <column xsi:type="timestamp" name="created_at" nullable="true" default="CURRENT_TIMESTAMP" comment="Created At" />
+
+        <!-- Foreign key để kết nối với bảng customer_entity -->
+        <!--        <constraint xsi:type="foreign" referenceId="FK_TESTIMONIAL_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID"-->
+        <!--                    table="tigren_testimonial" column="customer_id"-->
+        <!--                    referenceTable="customer_entity" referenceColumn="entity_id"-->
+        <!--                    onDelete="SET NULL" />-->
+
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id" />
         </constraint>

@@ -89,6 +89,7 @@ class Save extends Action
             'profile_image' => $data['profile_image'] ?? '',
             'status' => isset($data['status']) ? (int)$data['status'] : 0,
             'message' => $data['message'] ?? '',
+            'customer_id' => $data['customer_id'] ?? '',
         ];
 
         // Tạo hoặc load testimonial

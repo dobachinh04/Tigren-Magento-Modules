@@ -80,19 +80,4 @@ class DataProvider extends AbstractDataProvider
 
         return $this->_loadedData;
     }
-
-    public function getCustomerOptions()
-    {
-        $customerCollection = $this->customerFactory->create()->getCollection();
-        $options = [];
-
-        foreach ($customerCollection as $customer) {
-            $options[] = [
-                'value' => $customer->getId(),
-                'label' => $customer->getName() // Hoặc có thể dùng getEmail() hoặc getFirstname() + ' ' + getLastname()
-            ];
-        }
-
-        return $options;
-    }
 }

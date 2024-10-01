@@ -7,54 +7,33 @@ use Magento\Framework\App\Action\Context;
 use Tigren\Testimonial\Model\TestimonialFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\App\Request\Http as HttpRequest;
+use Magento\Customer\Model\Session as CustomerSession;
 
 class Save extends Action
 {
-    /**
-     * @var TestimonialFactory
-     */
     protected $testimonialFactory;
-    /**
-     * @var \Magento\Framework\File\UploaderFactory
-     */
     protected $fileUploaderFactory;
-    /**
-     * @var string
-     */
     protected $mediaDirectory;
-    /**
-     * @var \Magento\Framework\Message\ManagerInterface
-     */
     protected $messageManager;
+    protected $customerSession;
 
-
-    /**
-     * @param Context $context
-     * @param TestimonialFactory $testimonialFactory
-     * @param \Magento\Framework\File\UploaderFactory $fileUploaderFactory
-     * @param \Magento\Framework\Filesystem\DirectoryList $directoryList
-     * @param \Magento\Framework\Message\ManagerInterface $messageManager
-     * @throws \Magento\Framework\Exception\FileSystemException
-     */
     public function __construct(
         Context                                     $context,
         TestimonialFactory                          $testimonialFactory,
         \Magento\Framework\File\UploaderFactory     $fileUploaderFactory,
         \Magento\Framework\Filesystem\DirectoryList $directoryList,
-        \Magento\Framework\Message\ManagerInterface $messageManager
+        \Magento\Framework\Message\ManagerInterface $messageManager,
+        CustomerSession                             $customerSession
     )
     {
         $this->testimonialFactory = $testimonialFactory;
         $this->fileUploaderFactory = $fileUploaderFactory;
         $this->mediaDirectory = $directoryList->getPath(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
         $this->messageManager = $messageManager;
+        $this->customerSession = $customerSession;
         parent::__construct($context);
     }
 
-
-    /**
-     * @return \Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface
-     */
     public function execute()
     {
         $request = $this->getRequest();
@@ -66,7 +45,14 @@ class Save extends Action
                 ->setRating($data['rating'])
                 ->setMessage($data['message'])
                 ->setCompany($data['company']);
-            // Handle file upload
+
+            // Lấy thông tin khách hàng từ session nếu đăng nhập
+            if ($this->customerSession->isLoggedIn()) {
+                $customer = $this->customerSession->getCustomer();
+                $testimonial->setCustomerId($customer->getId());
+            }
+
+            // Xử lý upload hình ảnh
             if (isset($_FILES['profile_image']) && $_FILES['profile_image']['size'] > 0) {
                 try {
                     $uploader = $this->fileUploaderFactory->create(['fileId' => 'profile_image']);
@@ -79,7 +65,8 @@ class Save extends Action
                     return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath('*/*/');
                 }
             }
-            // Save testimonial
+
+            // Lưu testimonial
             try {
                 $testimonial->save();
                 $this->messageManager->addSuccessMessage(__('Testimonial has been successfully created.'));
@@ -87,7 +74,7 @@ class Save extends Action
                 $this->messageManager->addErrorMessage(__('Unable to save testimonial.'));
             }
         }
-        // Redirect or render view
+        // Điều hướng về trang testimonial
         return $this->resultFactory->create(ResultFactory::TYPE_REDIRECT)->setPath('testimonial');
     }
 }
