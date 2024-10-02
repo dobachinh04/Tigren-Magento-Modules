@@ -10,8 +10,8 @@
         <column xsi:type="varchar" name="customer_group_ids" nullable="false" length="255" comment="Customer Group IDs" />
         <column xsi:type="smallint" name="discard_subsequent" nullable="false" default="0" comment="Discard Subsequent Rules" />
         <column xsi:type="int" name="priority" nullable="false" default="0" comment="Rule Priority" />
-        <column xsi:type="date" name="from_date" nullable="true" comment="From Date" />
-        <column xsi:type="date" name="to_date" nullable="true" comment="To Date" />
+        <column xsi:type="date" name="from_date" nullable="false" comment="From Date" />
+        <column xsi:type="date" name="to_date" nullable="false" comment="To Date" />
         <column xsi:type="text" name="conditions_serialized" nullable="true" comment="Serialized Conditions" />
         <!--        <index name="TIGREN_SHIPPING_RESTRICTIONS_RULE_IDX" xsi:type="btree">-->
         <!--            <field name="rule_id"/>-->

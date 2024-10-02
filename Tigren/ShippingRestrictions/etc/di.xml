@@ -4,7 +4,7 @@
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="shipping_restrictions_listing_data_source" xsi:type="string">shipping_restrictions_collection</item>
-                <item name="shipping_restrictions_form_data_source" xsi:type="string">shipping_restrictions_form_collection</item>
+                <!--                <item name="shipping_restrictions_form_data_source" xsi:type="string">shipping_restrictions_form_collection</item>-->
             </argument>
         </arguments>
     </type>
@@ -16,9 +16,9 @@
         </arguments>
     </virtualType>
 
-    <type name="Magento\Framework\Data\OptionSourceInterface">
-        <arguments>
-            <argument name="shipping_methods" xsi:type="string">Tigren\ShippingRestrictions\Model\Config\Source\ShippingMethods</argument>
-        </arguments>
-    </type>
+    <!--    <type name="Magento\Framework\Data\OptionSourceInterface">-->
+    <!--        <arguments>-->
+    <!--            <argument name="shipping_methods" xsi:type="string">Tigren\ShippingRestrictions\Model\Config\Source\ShippingMethods</argument>-->
+    <!--        </arguments>-->
+    <!--    </type>-->
 </config>

@@ -2,77 +2,113 @@
 
 namespace Tigren\ShippingRestrictions\Controller\Adminhtml\Rule;
 
-use Exception;
 use Tigren\ShippingRestrictions\Model\ShippingRestrictionsFactory;
+use Tigren\ShippingRestrictions\Model\ResourceModel\ShippingRestrictions\CollectionFactory;
 use Magento\Backend\App\Action;
-use Magento\Backend\App\Action\Context;
-use Magento\Framework\Controller\ResultFactory;
 
-/**
- * Class Save
- * @package Tigren\Testimonial\Controller\Adminhtml\Question
- */
 class Save extends Action
 {
-    /**
-     * @var ShippingRestrictionsFactory
-     */
-    private $shippingRestrictionsFactory;
+    private $ruleFactory;
+    private $collectionFactory;
 
-    /**
-     * Save constructor.
-     * @param Context $context
-     * @param ShippingRestrictionsFactory $shippingRestrictionsFactory
-     */
     public function __construct(
-        Context $context,
-        ShippingRestrictionsFactory $shippingRestrictionsFactory
+        Action\Context $context,
+        ShippingRestrictionsFactory $ruleFactory,
+        CollectionFactory $collectionFactory
     ) {
         parent::__construct($context);
-        $this->shippingRestrictionsFactory = $shippingRestrictionsFactory;
+        $this->ruleFactory = $ruleFactory;
+        $this->collectionFactory = $collectionFactory;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function execute()
     {
+        $resultRedirect = $this->resultRedirectFactory->create();
         $data = $this->getRequest()->getPostValue();
+        //        var_dump($data);
+        //        exit;
+        if (!$data) {
+            $this->messageManager->addErrorMessage(__('No data found to save.'));
+            return $resultRedirect->setPath('*/*/');
+        }
 
         $id = !empty($data['rule_id']) ? $data['rule_id'] : null;
 
+        if (isset($data['name'])) {
+            $name = $data['name'];
+        } else {
+            throw new \Exception('Name không tồn tại.');
+        }
         $newData = [
-            'name' => $data['name'] ?? '',
-
-            // Giả sử đây là mảng, chuyển thành chuỗi phân cách bằng dấu phẩy
-            'customer_group_ids' => isset($data['customer_group_ids']) ? implode(',', $data['customer_group_ids']) : '',
-            'store_ids' => isset($data['store_ids']) ? implode(',', $data['store_ids']) : '',
-//            'product_ids' => isset($data['product_ids']) ? implode(',', $data['product_ids']) : '',
-
-            'discount_amount' => $data['discount_amount'] ?? '',
-            'start_time' => $data['start_time'] ?? '',
-            'end_time' => $data['end_time'] ?? '',
-            'priority' => $data['priority'] ?? '',
-            'product_ids' => $data['product_ids'] ?? '',
-            'is_active' => isset($data['is_active']) ? (int)$data['is_active'] : 0,
+            'name' => $name,
+            'from_date' => $data['from_date'],
+            'to_date' => $data['to_date'],
+            'priority' => $data['priority'],
+            'discount_amount' => $data['discount_amount'],
+            'status' => $data['status'],
+            'customer_group_ids' => $data['customer_group_ids'],
+            'store_ids' => $data['store_ids'],
+            'description' => $data['description'],
+            'discard_subsequent' => $data['discard_subsequent']
         ];
 
-        // Tạo hoặc load customerGroupCatalog
-        $customerGroupCatalog = $this->shippingRestrictionsFactory->create();
-        if ($id) {
-            $customerGroupCatalog->load($id);
+
+        $rule = $this->ruleFactory->create();
+        $collection = $this->collectionFactory->create();
+        $listRule = $collection->getData();
+
+        if (isset($id)) {
+            $rule->load($id);
         }
 
         try {
-            // Add dữ liệu và save
-            $customerGroupCatalog->addData($newData);
-            $customerGroupCatalog->save();
+            $customerGroupIds = $data['customer_group_ids'] ?? [];
+            $storeIds = $data['store_ids'] ?? [];
 
-            // Thông báo thành công
-            $this->messageManager->addSuccessMessage(__('You saved the Customer Group Catalog Rule.'));
-        } catch (Exception $e) {
-            // Thông báo lỗi nếu có
-            $this->messageManager->addErrorMessage(__($e->getMessage()));
+            if (count($customerGroupIds) <= 1 && count($storeIds) <= 1) {
+                $newData['customer_group_ids'] = $customerGroupIds[0] ?? '';
+                $newData['store_ids'] = implode(',', $storeIds);
+                $rule->addData($newData);
+                $rule->save();
+                $this->messageManager->addSuccessMessage(__('The rule has been successfully saved.'));
+            } else {
+                $savedRules = 0;
+                foreach ($customerGroupIds as $groupId) {
+                    foreach ($storeIds as $storeId) {
+                        $exists = false;
+                        foreach ($listRule as $existingRule) {
+                            if ($existingRule['customer_group_ids'] == $groupId
+                                && $existingRule['store_ids'] == $storeId) {
+                                $exists = true;
+                                break;
+                            }
+                        }
+                        if (!$exists) {
+                            $newData['customer_group_ids'] = $groupId;
+                            $newData['store_ids'] = $storeId;
+                            $newRule = $this->ruleFactory->create();
+                            $newRule->setId(null);
+                            $newRule->addData($newData);
+                            $newRule->save();
+                            $savedRules++;
+                        }
+                    }
+                }
+
+                if ($savedRules > 0) {
+                    $this->messageManager->addSuccessMessage(__('%1 rules have been saved.', $savedRules));
+                } else {
+                    $this->messageManager->addNoticeMessage(__('No new rules were saved as they already exist.'));
+                }
+            }
+        } catch (\Exception $exception) {
+            $this->messageManager->addErrorMessage(__('An error occurred while saving the rule: %1',
+                $exception->getMessage()));
         }
 
-        // Redirect về trang index
-        return $this->resultRedirectFactory->create()->setPath('*/*/index');
+        return $resultRedirect->setPath('*/*/index');
     }
 }

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
@@ -39,17 +38,22 @@
     </settings>
 
     <dataSource name="shipping_restrictions_form_data_source">
-        <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">Tigren\ShippingRestrictions\Model\Config\Rule\DataProvider</argument>
-            <argument name="name" xsi:type="string">shipping_restrictions_form_data_source</argument>
-            <argument name="primaryFieldName" xsi:type="string">rule_id</argument>
-            <argument name="requestFieldName" xsi:type="string">rule_id</argument>
-        </argument>
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
             </item>
         </argument>
+
+        <settings>
+            <submitUrl path="shipping_restrictions/rule/save" />
+        </settings>
+
+        <dataProvider class="Tigren\ShippingRestrictions\Model\Config\DataProvider" name="shipping_restrictions_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>rule_id</primaryFieldName>
+            </settings>
+        </dataProvider>
     </dataSource>
 
     <fieldset name="tab1">
@@ -57,6 +61,19 @@
             <label translate="true">General</label>
             <dataScope>general</dataScope>
         </settings>
+
+        <field name="rule_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">shipping_restrictions</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>rule_id</dataScope>
+            </settings>
+        </field>
 
         <field name="status" formElement="checkbox">
             <argument name="data" xsi:type="array">
@@ -86,49 +103,52 @@
             </formElements>
         </field>
 
-        <field name="name">
+        <field name="name" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Name</item>
-                    <item name="dataScope" xsi:type="string">name</item>
-                    <item name="formElement" xsi:type="string">input</item>
-                    <item name="dataType" xsi:type="string">text</item>
-                    <item name="required" xsi:type="boolean">true</item>
+                    <item name="source" xsi:type="string">shipping_restrictions</item>
                 </item>
             </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <label translate="true">Name</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <dataScope>name</dataScope>
+            </settings>
         </field>
 
-        <field name="store_ids">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Store IDs</item>
-                    <item name="dataScope" xsi:type="string">store_ids</item>
-                    <item name="formElement" xsi:type="string">multiselect</item>
-                    <item name="dataType" xsi:type="string">array</item>
-                    <item name="options" xsi:type="array"> <!-- Load store options dynamically -->
-                        <!-- Example: -->
-                        <item name="1" xsi:type="string" translate="true">Default Store</item>
-                        <item name="2" xsi:type="string" translate="true">Second Store</item>
-                        <!-- Add more stores as needed -->
-                    </item>
-                </item>
-            </argument>
+        <field name="store_ids" formElement="multiselect">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Stores</label>
+                <dataScope>store_ids</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Tigren\ShippingRestrictions\Model\Config\Source\StoreOptionsProvider" />
+                    </settings>
+                </multiselect>
+            </formElements>
         </field>
-        <field name="customer_group_ids">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Customer Group IDs</item>
-                    <item name="dataScope" xsi:type="string">customer_group_ids</item>
-                    <item name="formElement" xsi:type="string">multiselect</item>
-                    <item name="dataType" xsi:type="string">array</item>
-                    <item name="options" xsi:type="array"> <!-- Load customer group options dynamically -->
-                        <item name="all" xsi:type="string" translate="true">All Customer Groups</item>
-                        <item name="1" xsi:type="string" translate="true">General</item>
-                        <item name="2" xsi:type="string" translate="true">Wholesale</item>
-                        <!-- Add more customer groups as needed -->
-                    </item>
-                </item>
-            </argument>
+
+        <field name="customer_group_ids" formElement="multiselect">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Customer Groups</label>
+                <dataScope>customer_group_ids</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Tigren\ShippingRestrictions\Model\Config\Source\CustomerGroupOptionsProvider" />
+                    </settings>
+                </multiselect>
+            </formElements>
         </field>
 
         <field name="description">
@@ -138,6 +158,9 @@
                     <item name="dataScope" xsi:type="string">description</item>
                     <item name="formElement" xsi:type="string">textarea</item>
                     <item name="dataType" xsi:type="string">text</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="max_text_length" xsi:type="number">500</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -149,6 +172,10 @@
                     <item name="dataScope" xsi:type="string">priority</item>
                     <item name="formElement" xsi:type="string">input</item>
                     <item name="dataType" xsi:type="string">int</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-number" xsi:type="boolean">true</item>
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -160,6 +187,9 @@
                     <item name="dataScope" xsi:type="string">from_date</item>
                     <item name="formElement" xsi:type="string">date</item>
                     <item name="dataType" xsi:type="string">date</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-date" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -171,6 +201,9 @@
                     <item name="dataScope" xsi:type="string">to_date</item>
                     <item name="formElement" xsi:type="string">date</item>
                     <item name="dataType" xsi:type="string">date</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-date" xsi:type="boolean">true</item>
+                    </item>
                 </item>
             </argument>
         </field>
@@ -186,7 +219,7 @@
             <settings>
                 <dataType>boolean</dataType>
                 <label translate="true">Discard Subsequent</label>
-                <dataScope>is_active</dataScope>
+                <dataScope>discard_subsequent</dataScope>
                 <visible>true</visible>
             </settings>
 
@@ -209,6 +242,48 @@
             <label translate="true">Conditions</label>
             <dataScope>tab2</dataScope>
         </settings>
+
+        <fieldset name="conditions" sortOrder="20">
+            <settings>
+                <collapsible>true</collapsible>
+                <label translate="true">Conditions</label>
+            </settings>
+            <container name="conditions_apply_to" sortOrder="10">
+                <htmlContent name="html_content">
+                    <block name="conditions_apply_to" class="Magento\SalesRule\Block\Adminhtml\Promo\Quote\Edit\Tab\Conditions" />
+                </htmlContent>
+            </container>
+        </fieldset>
+
+        <field name="active_cart_price_rule_ids" formElement="multiselect">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Active if these Cart Price Rules are applied</label>
+                <dataScope>active_cart_price_rule_ids</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Tigren\ShippingRestrictions\Model\Config\Source\CartPriceRuleOptionsProvider" />
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <field name="inactive_cart_price_rule_ids" formElement="multiselect">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Inactive if these Cart Price Rules are applied</label>
+                <dataScope>inactive_cart_price_rule_ids</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Tigren\ShippingRestrictions\Model\Config\Source\CartPriceRuleOptionsProvider" />
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
     </fieldset>
 
     <fieldset name="tab3">
@@ -216,20 +291,84 @@
             <label translate="true">Action</label>
             <dataScope>action</dataScope>
         </settings>
-        <field name="shipping_methods">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="label" xsi:type="string" translate="true">Select Shipping Methods</item>
-                    <item name="dataScope" xsi:type="string">shipping_methods</item>
-                    <item name="formElement" xsi:type="string">multiselect</item>
-                    <item name="dataType" xsi:type="string">array</item>
-                    <item name="options" xsi:type="array"> <!-- Bạn cần lấy danh sách các shipping methods từ hệ thống -->
-                        <item name="flatrate" xsi:type="string" translate="true">Flat Rate</item>
-                        <item name="freeshipping" xsi:type="string" translate="true">Free Shipping</item>
-                        <!-- Thêm các phương thức khác -->
-                    </item>
-                </item>
-            </argument>
+
+        <field name="what_to_do" formElement="select">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">What To Do</label>
+                <dataScope>what_to_do</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options>
+                            <option name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="label" xsi:type="string">Hide</item>
+                            </option>
+                            <option name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="label" xsi:type="string">Show</item>
+                            </option>
+                        </options>
+                    </settings>
+                </select>
+            </formElements>
         </field>
+
+        <field name="shipping_methods" formElement="multiselect">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Select Shipping Methods</label>
+                <dataScope>shipping_methods</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Tigren\ShippingRestrictions\Model\Config\Source\ShippingMethodOptionsProvider" />
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <field name="where_to_apply" formElement="multiselect">
+            <settings>
+                <dataType>array</dataType> <!-- Thay đổi từ int thành array -->
+                <label translate="true">Where To Apply</label>
+                <dataScope>where_to_apply</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options>
+                            <option name="0" xsi:type="array">
+                                <item name="value" xsi:type="string">0</item>
+                                <item name="label" xsi:type="string">Backend Orders</item>
+                            </option>
+                            <option name="1" xsi:type="array">
+                                <item name="value" xsi:type="string">1</item>
+                                <item name="label" xsi:type="string">Storefront Purchases</item>
+                            </option>
+                        </options>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <!--        <field name="shipping_methods">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="label" xsi:type="string" translate="true">Select Shipping Methods</item>-->
+        <!--                    <item name="dataScope" xsi:type="string">shipping_methods</item>-->
+        <!--                    <item name="formElement" xsi:type="string">multiselect</item>-->
+        <!--                    <item name="dataType" xsi:type="string">array</item>-->
+        <!--                    <item name="options" xsi:type="array"> &lt;!&ndash; Bạn cần lấy danh sách các shipping methods từ hệ thống &ndash;&gt;-->
+        <!--                        <item name="flatrate" xsi:type="string" translate="true">Flat Rate</item>-->
+        <!--                        <item name="freeshipping" xsi:type="string" translate="true">Free Shipping</item>-->
+        <!--                        &lt;!&ndash; Thêm các phương thức khác &ndash;&gt;-->
+        <!--                    </item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--        </field>-->
     </fieldset>
 </form>
