@@ -3,7 +3,7 @@
     <body>
         <referenceBlock name="catalog.topnav">
             <!-- Block cho menu Tigren Testimonial -->
-            <block class="Tigren\Testimonial\Block\CustomLink" name="testimonial-link">
+            <block class="Tigren\Testimonial\Block\CustomLink" ifconfig="tigren/general/enable" name="testimonial-link">
                 <arguments>
                     <argument name="label" xsi:type="string">Tigren Testimonial</argument>
                     <argument name="path" xsi:type="string">http://magento2.com/index.php/testimonial</argument>

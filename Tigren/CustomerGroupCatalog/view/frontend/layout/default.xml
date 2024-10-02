@@ -3,7 +3,7 @@
     <body>
         <referenceBlock name="catalog.topnav">
             <!-- Block cho menu Tigren Customer Group Catalog -->
-            <block class="Tigren\CustomerGroupCatalog\Block\CustomLink" name="customer-group-catalog-link">
+            <block class="Tigren\CustomerGroupCatalog\Block\CustomLink" ifconfig="tigren_customer_group_catalog/general/enable" name="customer-group-catalog-link">
                 <arguments>
                     <argument name="label" xsi:type="string">Tigren Discount</argument>
                     <argument name="path" xsi:type="string">http://magento2.com/index.php/discount</argument>
