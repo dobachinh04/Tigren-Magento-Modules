@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">faq_listing.faq_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>faq_columns</spinner>
+        <deps>
+            <dep>faq_listing.faq_listing_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="add">
+                <url path="faq/question/add" />
+                <class>primary</class>
+                <label translate="true">Add new</label>
+            </button>
+        </buttons>
+    </settings>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <filterSearch name="fulltext" />
+        <bookmark name="bookmarks" />
+        <exportButton name="export_button" />
+        <columnsControls name="columns_controls" />
+        <filters name="listing_filters" />
+        <paging name="listing_paging" />
+
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/massactions</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="faq/question/delete" />
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete Row</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+    </listingToolbar>
+
+    <dataSource name="faq_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render" />
+            <storageConfig>
+                <param name="indexField" xsi:type="string">entity_id</param>
+            </storageConfig>
+        </settings>
+        <aclResource>Tigren_Faq::listing</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="faq_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <!-- columns -->
+    <columns name="faq_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <!-- Column entity_id -->
+        <column name="entity_id">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+
+        <!-- Column question -->
+        <column name="question">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Question</label>
+            </settings>
+        </column>
+
+        <!-- Column author -->
+        <column name="author">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Author</label>
+            </settings>
+        </column>
+
+        <!-- Column answer -->
+        <column name="answer">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Answer</label>
+            </settings>
+        </column>
+
+        <!-- Column product -->
+        <column name="product">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product ID</label>
+            </settings>
+        </column>
+
+        <!-- Column position -->
+        <column name="position">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Position</label>
+            </settings>
+        </column>
+
+        <!-- Column status -->
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="80">
+            <settings>
+                <filter>select</filter>
+                <label translate="true">Status</label>
+                <dataType>select</dataType>
+                <options class="Tigren\Faq\Model\Config\Status" />
+            </settings>
+        </column>
+
+        <!-- Column created_at -->
+        <column name="created_at">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Tigren\Faq\Ui\Component\Listing\Grid\Column\Action">
+            <settings>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

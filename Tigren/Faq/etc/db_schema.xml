@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="tigren_faq" resource="default" engine="innodb" comment="List of FAQs">
+        <column xsi:type="int" name="entity_id" identity="true" nullable="false" comment="Entity ID" />
+        <column xsi:type="varchar" name="question" length="255" nullable="false" comment="Question" />
+        <column xsi:type="varchar" name="author" length="255" nullable="false" comment="Author" />
+        <column xsi:type="text" name="answer" nullable="true" comment="Answer" />
+        <column xsi:type="int" name="product" nullable="false" comment="Product ID" />
+        <column xsi:type="int" name="position" nullable="false" comment="Position" />
+        <column xsi:type="smallint" name="status" nullable="false" default="1" comment="Status" />
+        <column xsi:type="timestamp" name="created_at" nullable="true" default="CURRENT_TIMESTAMP" comment="Created At" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id" />
+        </constraint>
+    </table>
+</schema>

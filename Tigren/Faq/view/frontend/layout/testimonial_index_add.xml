@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Add New Testimonial</title>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument name="title" xsi:type="string">Add New Testimonial</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="content">
+            <block class="Magento\Framework\View\Element\Template" template="Tigren_Testimonial::add_testimonial.phtml" as="add_testimonial">
+
+            </block>
+        </referenceBlock>
+    </body>
+</page>

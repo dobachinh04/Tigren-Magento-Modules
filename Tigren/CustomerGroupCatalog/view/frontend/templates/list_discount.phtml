@@ -85,7 +85,9 @@ $testimonialBlock = $block->getChildBlock('customerGroupCatalog');
                 <td><?= htmlspecialchars($item->getData('customer_group_ids')) ?></td>
                 <td><?= htmlspecialchars($item->getData('store_ids')) ?></td>
                 <td><?= htmlspecialchars($item->getData('product_ids')) ?></td>
-                <td><?= htmlspecialchars($item->getData('discount_amount')) ?></td>
+                <td>
+                    <?= htmlspecialchars(number_format($item->getData('discount_amount'), 0, '.', '')) ?>%
+                </td>
                 <td><?= htmlspecialchars($formattedStartTime) ?></td>
                 <td><?= htmlspecialchars($formattedEndTime) ?></td>
                 <td><?= htmlspecialchars($item->getData('priority')) ?></td>

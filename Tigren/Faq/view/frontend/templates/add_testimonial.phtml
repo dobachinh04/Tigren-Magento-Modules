@@ -1,0 +1,113 @@
+<?php /** @var Template $block */
+
+use Magento\Framework\View\Element\Template; ?>
+
+<style>
+    .form-container {
+        max-width: 800px;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin: 20px auto 0;
+    }
+
+    .form-container h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-container div {
+        margin-bottom: 15px;
+    }
+
+    .form-container label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container textarea,
+    .form-container input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dcdcdc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .form-container textarea {
+        height: 150px;
+        resize: vertical;
+    }
+
+    .form-container input[type="submit"] {
+        background-color: #007aab;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .form-container input[type="submit"]:hover {
+        background-color: #005a87;
+    }
+
+</style>
+
+<div class="actions-toolbar">
+    <div class="actions">
+        <a href="http://magento2.com/index.php/testimonial" class="action primary back-link">
+            <span>Back</span>
+        </a>
+    </div>
+</div>
+
+<div class="form-container">
+    <form action="<?= $block->getUrl('testimonial/index/save') ?>" method="post" enctype="multipart/form-data">
+        <?= $block->getBlockHtml('formkey') ?>
+
+        <!-- Input hidden để lấy ID khách hàng đang đăng nhập -->
+        <input type="hidden" name="customer_id" value="<?= $block->escapeHtml($block->getCustomerId()) ?>">
+
+        <div>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+
+        <div>
+            <label for="company">Company</label>
+            <input type="text" name="company" id="company" required>
+        </div>
+
+        <div>
+            <label for="rating">Rating</label>
+            <input type="text" name="rating" id="rating" required>
+        </div>
+
+        <div>
+            <label for="message">Message</label>
+            <textarea name="message" id="message" required></textarea>
+        </div>
+
+        <div>
+            <label for="profile_image">Profile Image</label>
+            <input type="file" name="profile_image" id="profile_image">
+        </div>
+
+        <input type="submit" value="Save">
+    </form>
+</div>

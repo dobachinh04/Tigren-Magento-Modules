@@ -15,7 +15,7 @@
         <column xsi:type="int" name="customer_group_ids" nullable="false" comment="Customer Group IDs" />
         <column xsi:type="int" name="store_ids" nullable="false" comment="Store IDs" />
         <column xsi:type="int" name="product_ids" nullable="false" comment="Product IDs" />
-        <column xsi:type="decimal" name="discount_amount" nullable="false" precision="12" scale="4" comment="Discount Amount (Percent)" />
+        <column xsi:type="decimal" name="discount_amount" nullable="false" precision="12" scale="2" comment="Discount Amount (Percent)" />
         <column xsi:type="timestamp" name="start_time" nullable="false" comment="Start Time" />
         <column xsi:type="timestamp" name="end_time" nullable="false" comment="End Time" />
         <column xsi:type="int" name="priority" nullable="false" default="0" comment="Priority" />

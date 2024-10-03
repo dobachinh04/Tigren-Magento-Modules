@@ -16,9 +16,9 @@
         </arguments>
     </type>
 
-    <type name="Magento\Catalog\Model\Product">
-        <plugin name="change_product" type="Tigren\CustomerGroupCatalog\Plugin\ApplyDiscountInView" sortOrder="1" disabled="false" />
-    </type>
+<!--    <type name="Magento\Catalog\Model\Product">-->
+<!--        <plugin name="change_product" type="Tigren\CustomerGroupCatalog\Plugin\ApplyDiscountInView" sortOrder="1" disabled="false" />-->
+<!--    </type>-->
 
     <virtualType name="customer_group_catalog_rule_collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+-->
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">testimonial_form.testimonial_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Testimonial Information</item>
+        <!--        <item name="reverseMetadataMerge" xsi:type="boolean">true</item>-->
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+
+    <settings>
+        <buttons>
+            <button name="back">
+                <url path="*/*/index" />
+                <class>back</class>
+                <label translate="true">Back</label>
+            </button>
+            <button name="save">
+                <url path="*/*/save" />
+                <class>primary</class>
+                <label translate="true">Save</label>
+            </button>
+        </buttons>
+        <namespace>testimonial_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>testimonial_form.testimonial_form_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="testimonial_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+
+        <settings>
+            <submitUrl path="testimonial/question/save" />
+        </settings>
+
+        <dataProvider class="Tigren\Testimonial\Model\Config\DataProvider" name="testimonial_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="general" sortOrder="10">
+        <settings>
+            <label translate="true">Testimonial Details</label>
+        </settings>
+
+        <!--        id-->
+        <field name="entity_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonial</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>entity_id</dataScope>
+            </settings>
+        </field>
+
+        <!--        Status-->
+        <field name="status" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonial</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable Status</label>
+                <dataScope>status</dataScope>
+            </settings>
+
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+
+        <!--        name-->
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonial</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <label translate="true">Name</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+
+        <!--        email-->
+        <field name="email" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonial</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <label translate="true">Email</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <!--        company-->
+        <field name="company" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonial</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <label translate="true">Company</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <!--        rating-->
+        <field name="rating" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonial</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="validate-number" xsi:type="boolean">true</rule>
+                    <!--                    <rule name="validate-range" xsi:type="array">-->
+                    <!--                        <item name="min" xsi:type="string">1</item>-->
+                    <!--                        <item name="max" xsi:type="string">5</item>-->
+                    <!--                    </rule>-->
+                </validation>
+                <label translate="true">Rating</label>
+                <dataType>decimal</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <!--        Created At-->
+        <field name="created_at" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonial</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <label translate="true">Created At</label>
+                <dataType>date</dataType>
+                <!--                <dateFormat>yyyy-MM-dd</dateFormat>-->
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <!--        message-->
+        <field name="message" formElement="textarea">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">testimonial</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="max_text_length" xsi:type="number">255</rule>
+                </validation>
+                <label translate="true">Message</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+
+        <field name="customer_id" formElement="select">
+            <settings>
+                <dataType>int</dataType>
+                <label translate="true">Customer</label>
+                <dataScope>customer_id</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <!--                        <options class="Vendor\Module\Model\Source\CustomerOptionsProvider" />-->
+                        <options class="Tigren\Testimonial\Model\Customer\Options" />
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <!--        <field name="customer_id" formElement="select">-->
+        <!--            <settings>-->
+        <!--                <label translate="true">Customer</label>-->
+        <!--                <dataType>int</dataType>-->
+        <!--                <formElement>select</formElement>-->
+        <!--                <options>-->
+        <!--                    <option name="0" xsi:type="option" translate="true">&#45;&#45; Please Select &#45;&#45;</option>-->
+        <!--                </options>-->
+        <!--            </settings>-->
+        <!--            <formElements>-->
+        <!--                <select>-->
+        <!--                    <settings>-->
+        <!--                        <options class="Tigren\Testimonial\Model\Customer\Options" />-->
+        <!--                    </settings>-->
+        <!--                </select>-->
+        <!--            </formElements>-->
+        <!--        </field>-->
+
+        <!--        profile_image-->
+        <field name="profile_image" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataScope" xsi:type="string">profile_image</item>
+                    <item name="label" xsi:type="string" translate="true">Profile Image</item>
+                    <item name="source" xsi:type="string">testimonial</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <visible>true</visible>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="testimonial/question/imageTempUpload" />
+                        </uploaderConfig>
+                        <allowedExtensions>jpg jpeg png webp</allowedExtensions>
+                        <maxFileSize>4194309</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

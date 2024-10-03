@@ -11,7 +11,7 @@ use Magento\Framework\View\Element\Block\ArgumentInterface;
 
 use Tigren\Testimonial\Model\ResourceModel\Testimonial\Collection;
 use Tigren\Testimonial\Service\TestimonialProvider;
-use Tigren\Testimonial\Model\Testimonial;
+use Tigren\Testimonial\Model\Faq;
 use Magento\Framework\App\RequestInterface;
 use Magento\Theme\Block\Html\Pager;
 use Magento\Framework\View\Element\Template;
@@ -49,13 +49,13 @@ class TestimonialViewModel implements ArgumentInterface
         return $pagerBlock->toHtml();
     }
 
-    public function getTestimonialHtml(Template $block, Testimonial $testimonial):string
+    public function getTestimonialHtml(Template $block, Faq $testimonial):string
     {
         $block->setData('testimonial', $testimonial);
         return $block->toHtml();
     }
 
-    public function getProfileImageUrl(Testimonial $testimonial): string
+    public function getProfileImageUrl(Faq $testimonial): string
     {
         $filename = $testimonial->getData('profile_image');
         $profile_image_path = 'tmp/imageUploader/images/';

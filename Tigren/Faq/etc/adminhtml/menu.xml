@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Menu/etc/menu.xsd">
+    <menu>
+        <add id="Tigren_Faq::second_level"
+             title="Product Faq"
+             module="Tigren_Faq"
+             sortOrder="4"
+             action="faq/question/index"
+             parent="Tigren::first_level"
+             resource="Magento_Backend::content" />
+    </menu>
+</config>

@@ -243,17 +243,17 @@
             <dataScope>tab2</dataScope>
         </settings>
 
-        <fieldset name="conditions" sortOrder="20">
-            <settings>
-                <collapsible>true</collapsible>
-                <label translate="true">Conditions</label>
-            </settings>
-            <container name="conditions_apply_to" sortOrder="10">
-                <htmlContent name="html_content">
-                    <block name="conditions_apply_to" class="Magento\SalesRule\Block\Adminhtml\Promo\Quote\Edit\Tab\Conditions" />
-                </htmlContent>
-            </container>
-        </fieldset>
+        <!--        <fieldset name="conditions" sortOrder="20">-->
+        <!--            <settings>-->
+        <!--                <collapsible>true</collapsible>-->
+        <!--                <label translate="true">Conditions</label>-->
+        <!--            </settings>-->
+        <!--            <container name="conditions_apply_to" sortOrder="10">-->
+        <htmlContent name="html_content">
+            <block name="conditions_apply_to" class="Magento\SalesRule\Block\Adminhtml\Promo\Quote\Edit\Tab\Conditions" />
+        </htmlContent>
+        <!--            </container>-->
+        <!--        </fieldset>-->
 
         <field name="active_cart_price_rule_ids" formElement="multiselect">
             <settings>
