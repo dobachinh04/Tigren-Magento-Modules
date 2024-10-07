@@ -5,8 +5,5 @@
  *
  */
 
-var NonAMDLib = {
-    init: function() {
-        console.log('Non-AMD Library loaded successfully!');
-    }
-};
+console.log('Non-AMD Library loaded successfully! Hello');
+

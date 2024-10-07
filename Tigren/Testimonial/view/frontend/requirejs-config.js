@@ -6,18 +6,28 @@
  */
 
 var config = {
-    paths: {
-        // Định nghĩa đường dẫn đến module theo chuẩn AMD
-        'Tigren_Testimonial': 'Tigren_Testimonial/my-script',  // Tên module là myModule
+    // waitSeconds: 120,
 
-        // Định nghĩa đường dẫn đến non-AMD library
-        'nonAMDLib': 'Tigren_Testimonial/non-amd-library'  // nonAMDLib là tên thư viện
+    deps: [
+        'Tigren_Testimonial/js/my-script',
+        'Tigren_Testimonial/js/non-amd-library'
+    ],
+    map: {
+        '*': {
+            'my-script': 'Tigren_Testimonial/js/my-script',
+            'non-amd-library': 'Tigren_Testimonial/js/non-amd-library',
+            'testimonial': 'Tigren_Testimonial/js/testimonial',
+            'testimonial-widget': 'Tigren_Testimonial/js/testimonial-widget'
+        }
     },
     shim: {
-        // Cấu hình cho non-AMD module
-        'nonAMDLib': {
-            deps: ['jquery'],  // non-AMD library cần jQuery
-            exports: 'NonAMDLib'  // Export đối tượng từ thư viện non-AMD
+        'Tigren_Testimonial/js/legacy': {
+            deps: ['jquery'],
+            exports: 'legacyFunction'
         }
-    }
+    },
 };
+
+// Debug log để kiểm tra nếu config được chạy
+console.log('RequireJS config loaded:', config);
+

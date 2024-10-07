@@ -5,11 +5,4 @@
  *
  */
 
-define(['jquery'], function($) {
-    'use strict';
-    return {
-        init: function() {
-            console.log('My AMD module loaded successfully!');
-        }
-    };
-});
+console.log('My AMD module loaded successfully! Hello');

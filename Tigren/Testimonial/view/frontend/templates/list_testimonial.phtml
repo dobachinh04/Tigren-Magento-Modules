@@ -98,3 +98,25 @@ $testimonialBlock = $block->getChildBlock('testimonial');
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
       integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div data-mage-init='{"testimonialJs": {"configData": {"name": "Tigren", "module": "Testimonial"}}}'>
+    Testimonial Module
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "testimonialJs": <?= /* @escapeNotVerified */ json_encode($block->getJsLayout()) ?>
+    }
+}
+</script>
+
+<script>
+    // Debug log để kiểm tra nếu JS layout được tạo thành công
+    console.log('JS Layout:', <?= /* @escapeNotVerified */ json_encode($block->getJsLayout()) ?>);
+</script>
+
+<div>
+    Testimonial Module with jsLayout
+</div>
+

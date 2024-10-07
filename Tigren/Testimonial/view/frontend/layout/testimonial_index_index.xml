@@ -13,6 +13,13 @@
         <referenceBlock name="content">
             <block class="Magento\Framework\View\Element\Template" template="Tigren_Testimonial::list_testimonial.phtml" as="testimonial">
                 <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="testimonialJsConfig" xsi:type="array">
+                            <item name="name" xsi:type="string">Tigren</item>
+                            <item name="module" xsi:type="string">Testimonial</item>
+                        </item>
+                    </argument>
+
                     <argument name="testimonial_view_model" xsi:type="object">Tigren\Testimonial\ViewModel\TestimonialViewModel</argument>
                 </arguments>
 

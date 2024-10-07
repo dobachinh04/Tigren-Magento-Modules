@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <script src="Tigren_Testimonial::js/my-script.js"/>
-        <script src="Tigren_Testimonial::js/non-amd-library.js"/>
+        <script src="Tigren_Testimonial::js/my-script.js" />
+        <script src="Tigren_Testimonial::js/non-amd-library.js" />
+<!--        <script src="Tigren_Testimonial::js/testimonial.js" />-->
     </head>
-
     <body>
         <referenceBlock name="catalog.topnav">
             <!-- Block cho menu Tigren Testimonial -->
