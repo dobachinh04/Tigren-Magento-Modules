@@ -2,15 +2,12 @@
 
 namespace Tigren\SimpleBlog\Model\Resolver;
 
-use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\CouldNotSaveException;
+use Tigren\SimpleBlog\Model\CategoryFactory;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
-use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
-use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Framework\GraphQl\Config\Element\Field;
-use Magento\Framework\App\RequestInterface;
-use Tigren\SimpleBlog\Model\CategoryFactory;
 
 class CreateBlogCategory implements ResolverInterface
 {
@@ -29,25 +26,20 @@ class CreateBlogCategory implements ResolverInterface
         array $value = null,
         array $args = null
     ) {
-        // Kiểm tra input
-        if (!isset($args['input']['name']) || !isset($args['input']['description'])) {
-            throw new GraphQlInputException(__('Name and Description are required'));
+        if (!isset($args['name']) || !isset($args['description']) || !isset($args['status'])) {
+            throw new GraphQlInputException(__('Missing required parameters.'));
         }
 
-        // Tạo mới category
         $category = $this->categoryFactory->create();
-        $category->setData([
-            'name' => $args['input']['name'],
-            'description' => $args['input']['description'],
-            'status' => $args['input']['status'] ?? 1
-        ]);
-        $category->save();
+        $category->setData('name', $args['name']);
+        $category->setData('description', $args['description']);
+        $category->setData('status', $args['status']);
 
-        return [
-            'entity_id' => $category->getId(),
-            'name' => $category->getName(),
-            'description' => $category->getDescription(),
-            'status' => $category->getStatus()
-        ];
+        try {
+            $category->save();
+            return $category->getData();
+        } catch (CouldNotSaveException $e) {
+            throw new GraphQlInputException(__('Could not save the blog category.'));
+        }
     }
 }

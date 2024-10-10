@@ -1,18 +1,10 @@
 <?xml version="1.0"?>
 
-<!--
-/**
- * @author    Tigren Solutions <info@tigren.com>
- * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
- * @license   Open Software License ("OSL") v. 3.0
- */
--->
-
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
-    <!-- test api Group -->
-    <route url="/V1/testapi/custom/me" method="GET">
-        <service class="Tigren\Testimonial\Api\TestApiManagementInterface" method="getApiData"/>
+
+    <route url="/V1/testimonial/question/me" method="GET">
+        <service class="Tigren\Testimonial\Api\TestApiManagementInterface" method="getApiDataTest"/>
         <resources>
             <resource ref="self"/>
         </resources>
@@ -20,4 +12,12 @@
             <parameter name="id" force="true">%customer_id%</parameter>
         </data>
     </route>
+
+    <route url="/V1/testimonial/question/{entity_id}" method="GET">
+        <service class="Tigren\Testimonial\Api\TestApiManagementInterface" method="getApiData"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
 </routes>

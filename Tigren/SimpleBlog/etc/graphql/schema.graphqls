@@ -1,16 +1,19 @@
-extend type Mutation {
-    createBlogCategory(input: BlogCategoryInput!): BlogCategoryOutput @resolver(class: "Tigren\\SimpleBlog\\Model\\Resolver\\CreateBlogCategory")
-}
-
-input BlogCategoryInput {
-    name: String!
-    description: String!
-    status: Int
-}
-
-type BlogCategoryOutput {
+type BlogCategory {
     entity_id: Int
     name: String
     description: String
     status: Int
+    created_at: String
+    updated_at: String
+}
+
+type Query {
+    getBlogCategory(entity_id: Int!): BlogCategory
+    getAllBlogCategories: [BlogCategory]
+}
+
+type Mutation {
+    createBlogCategory(name: String!, description: String!, status: Int!): BlogCategory
+    updateBlogCategory(entity_id: Int!, name: String, description: String, status: Int): BlogCategory
+    deleteBlogCategory(entity_id: Int!): Boolean
 }

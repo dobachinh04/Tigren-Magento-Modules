@@ -1,43 +1,81 @@
 <?php
+/**
+ * @author    Tigren Solutions <info@tigren.com>
+ * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
+ * @license   Open Software License ("OSL") v. 3.0
+ *
+ */
 
 namespace Tigren\Testimonial\Model;
 
+/**
+ * Marketplace Product Model.
+ *
+ * @method \Tigren\Marketplace\Model\ResourceModel\Product _getResource()
+ * @method \Tigren\Marketplace\Model\ResourceModel\Product getResource()
+ */
 class TestApi implements \Tigren\Testimonial\Api\Data\TestApiInterface
 {
-    protected $_id;
-    protected $_title;
-    protected $_description;
-
+    /**
+     * Get ID.
+     *
+     * @return int
+     */
     public function getId()
     {
-        return $this->_id;
+        return 10;
     }
 
+    /**
+     * Set ID.
+     *
+     * @param int $id
+     *
+     * @return \Tigren\Marketplace\Api\Data\ProductInterface
+     */
     public function setId($id)
     {
-        $this->_id = $id;
-        return $this;
     }
 
+    /**
+     * Get title.
+     *
+     * @return string|null
+     */
     public function getTitle()
     {
-        return $this->_title;
+        return 'this is test title';
     }
 
+    /**
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return \Tigren\Marketplace\Api\Data\ProductInterface
+     */
     public function setTitle($title)
     {
-        $this->_title = $title;
-        return $this;
     }
 
+    /**
+     * Get desc.
+     *
+     * @return string|null
+     */
     public function getDescription()
     {
-        return $this->_description;
+        return 'Hello World';
     }
 
+    /**
+     * Set Desc.
+     *
+     * @param string $desc
+     *
+     * @return \Tigren\Marketplace\Api\Data\ProductInterface
+     */
     public function setDescription($desc)
     {
-        $this->_description = $desc;
-        return $this;
     }
 }
