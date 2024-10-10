@@ -1,50 +1,43 @@
 <?php
-/**
- * @author    Tigren Solutions <info@tigren.com>
- * @copyright Copyright (c) 2024 Tigren Solutions <https://www.tigren.com>. All rights reserved.
- * @license   Open Software License ("OSL") v. 3.0
- *
- */
 
 namespace Tigren\SimpleBlog\Model\Resolver;
 
-use Magento\Framework\GraphQl\Exception\GraphQlInputException;
-use Magento\Framework\GraphQl\Exception\GraphQlNoSuchEntityException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Magento\Framework\GraphQl\Config\Element\Field;
-use Tigren\SimpleBlog\Model\ResourceModel\Category\CollectionFactory;
+use Tigren\SimpleBlog\Model\CategoryFactory;
 
 class GetBlogCategory implements ResolverInterface
 {
-    protected $categoryCollectionFactory;
+    protected $categoryFactory;
 
-    public function __construct(
-        CollectionFactory $categoryCollectionFactory
-    ) {
-        $this->categoryCollectionFactory = $categoryCollectionFactory;
+    public function __construct(CategoryFactory $categoryFactory)
+    {
+        $this->categoryFactory = $categoryFactory;
     }
 
     public function resolve(
-        Field $field,
+        \Magento\Framework\GraphQl\Config\Element\Field $field,
         $context,
         ResolveInfo $info,
         array $value = null,
         array $args = null
     ) {
-        $categoryId = $args['entity_id'] ?? null;
+        $categoryId = $args['entity_id'];
+        $category = $this->categoryFactory->create()->load($categoryId);
 
-        if (!$categoryId) {
-            throw new GraphQlInputException(__('Entity ID is required.'));
+        if (!$category->getId()) {
+            throw new \Magento\Framework\Exception\NoSuchEntityException(
+                __('Blog category with ID "%1" does not exist.', $categoryId)
+            );
         }
 
-        $collection = $this->categoryCollectionFactory->create();
-        $category = $collection->getItemById($categoryId);
-
-        if (!$category) {
-            throw new GraphQlNoSuchEntityException(__('Blog category not found.'));
-        }
-
-        return $category->getData();
+        return [
+            'entity_id' => $category->getId(),
+            'name' => $category->getName(),
+            'description' => $category->getDescription(),
+            'status' => $category->getStatus(),
+            'created_at' => $category->getCreatedAt(),
+            'updated_at' => $category->getUpdatedAt(),
+        ];
     }
 }

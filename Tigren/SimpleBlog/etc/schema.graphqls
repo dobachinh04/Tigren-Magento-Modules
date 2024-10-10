@@ -1,0 +1,29 @@
+type BlogCategory {
+    name: String
+    description: String
+    status: Int
+    created_at: String
+    updated_at: String
+}
+
+type Query {
+    getBlogCategory(entity_id: Int!): BlogCategory @resolver(class: "\\Tigren\\SimpleBlog\\Model\\Resolver\\GetBlogCategory")
+}
+
+input BlogCategoryInput {
+    name: String
+    description: String
+    status: Int
+    created_at: String
+    updated_at: String
+}
+
+type BlogCategoryOutput {
+    message: String @doc(description: "status message")
+}
+
+type Mutation {
+    createBlogCategory(input: BlogCategoryInput!): BlogCategory @resolver(class: "\\Tigren\\SimpleBlog\\Model\\Resolver\\CreateBlogCategory")
+    updateBlogCategory(entity_id: Int!, input: BlogCategoryInput!): BlogCategory @resolver(class: "\\Tigren\\SimpleBlog\\Model\\Resolver\\UpdateBlogCategory")
+    deleteBlogCategory(entity_id: Int!): Boolean @resolver(class: "\\Tigren\\SimpleBlog\\Model\\Resolver\\DeleteBlogCategory")
+}
