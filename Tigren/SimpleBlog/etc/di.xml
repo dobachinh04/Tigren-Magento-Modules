@@ -17,7 +17,7 @@
         </arguments>
     </type>
 
-    <virtualType name="category_collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <virtualType name="category_co  llection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">tigren_blog_category</argument>
             <argument name="resourceModel" xsi:type="string">Tigren\SimpleBlog\Model\ResourceModel\Category</argument>

@@ -8,6 +8,7 @@ type BlogCategory {
 
 type Query {
     getBlogCategory(entity_id: Int!): BlogCategory @resolver(class: "\\Tigren\\SimpleBlog\\Model\\Resolver\\GetBlogCategory")
+    getBlogCategories: BlogCategoryOutput @resolver(class: "\\Tigren\\SimpleBlog\\Model\\Resolver\\GetBlogCategories")
 }
 
 input BlogCategoryInput {
